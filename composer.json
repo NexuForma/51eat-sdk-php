@@ -27,7 +27,7 @@
     "sort-packages": true
   },
   "description": "Eat518 PHP SDK",
-  "name": "org-placeholder/eat518",
+  "name": "51eat/eat518",
   "require": {
     "php": "^8.1",
     "php-http/discovery": "^1",
