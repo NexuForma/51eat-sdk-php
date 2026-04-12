@@ -12,15 +12,18 @@ use Eat518\Customer\Discovery\DiscoveryListCategoriesResponse\Data;
 /**
  * @phpstan-import-type DataShape from \Eat518\Customer\Discovery\DiscoveryListCategoriesResponse\Data
  *
- * @phpstan-type DiscoveryListCategoriesResponseShape = array{data: Data|DataShape}
+ * @phpstan-type DiscoveryListCategoriesResponseShape = array{
+ *   data: list<Data|DataShape>
+ * }
  */
 final class DiscoveryListCategoriesResponse implements BaseModel
 {
     /** @use SdkModel<DiscoveryListCategoriesResponseShape> */
     use SdkModel;
 
-    #[Required]
-    public Data $data;
+    /** @var list<Data> $data */
+    #[Required(list: Data::class)]
+    public array $data;
 
     /**
      * `new DiscoveryListCategoriesResponse()` is missing required properties by the API.
@@ -46,9 +49,9 @@ final class DiscoveryListCategoriesResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Data|DataShape $data
+     * @param list<Data|DataShape> $data
      */
-    public static function with(Data|array $data): self
+    public static function with(array $data): self
     {
         $self = new self;
 
@@ -58,9 +61,9 @@ final class DiscoveryListCategoriesResponse implements BaseModel
     }
 
     /**
-     * @param Data|DataShape $data
+     * @param list<Data|DataShape> $data
      */
-    public function withData(Data|array $data): self
+    public function withData(array $data): self
     {
         $self = clone $this;
         $self['data'] = $data;

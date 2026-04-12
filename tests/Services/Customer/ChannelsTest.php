@@ -40,7 +40,7 @@ final class ChannelsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertIsString($result);
+        $this->assertIsInt($result);
     }
 
     #[Test]
@@ -56,6 +56,6 @@ final class ChannelsTest extends TestCase
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertIsString($result);
+        $this->assertIsInt($result);
     }
 }

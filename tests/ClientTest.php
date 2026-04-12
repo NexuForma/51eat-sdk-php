@@ -33,11 +33,11 @@ class ClientTest extends TestCase
         );
 
         $client->customer->register(
-            deviceName: 'iPhone 15',
-            email: 'john@example.com',
-            name: 'John Doe',
-            password: 'password123',
-            passwordConfirmation: 'password123',
+            deviceName: 'device_name',
+            email: 'dev@stainless.com',
+            name: 'name',
+            password: 'password',
+            passwordConfirmation: 'password_confirmation',
         );
 
         $this->assertNotFalse($requested = $transporter->getRequests()[0] ?? false);

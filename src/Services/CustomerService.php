@@ -80,9 +80,6 @@ final class CustomerService implements CustomerContract
      *
      * Exchange user credentials for an API token that can be used for subsequent authenticated requests.
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The user's email address
-     * @param string $password The user's password
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -144,11 +141,6 @@ final class CustomerService implements CustomerContract
      *
      * Create a new customer account and return an API token for immediate authentication.
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The customer's email address
-     * @param string $name The customer's full name
-     * @param string $password The customer's password
-     * @param string $passwordConfirmation Password confirmation
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

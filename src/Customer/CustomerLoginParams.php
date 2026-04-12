@@ -24,21 +24,12 @@ final class CustomerLoginParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    /**
-     * A descriptive name for the device.
-     */
     #[Required('device_name')]
     public string $deviceName;
 
-    /**
-     * The user's email address.
-     */
     #[Required]
     public string $email;
 
-    /**
-     * The user's password.
-     */
     #[Required]
     public string $password;
 
@@ -83,9 +74,6 @@ final class CustomerLoginParams implements BaseModel
         return $self;
     }
 
-    /**
-     * A descriptive name for the device.
-     */
     public function withDeviceName(string $deviceName): self
     {
         $self = clone $this;
@@ -94,9 +82,6 @@ final class CustomerLoginParams implements BaseModel
         return $self;
     }
 
-    /**
-     * The user's email address.
-     */
     public function withEmail(string $email): self
     {
         $self = clone $this;
@@ -105,9 +90,6 @@ final class CustomerLoginParams implements BaseModel
         return $self;
     }
 
-    /**
-     * The user's password.
-     */
     public function withPassword(string $password): self
     {
         $self = clone $this;

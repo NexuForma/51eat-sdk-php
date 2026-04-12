@@ -40,9 +40,9 @@ final class CustomerTest extends TestCase
         }
 
         $result = $this->client->customer->login(
-            deviceName: 'iPhone 15',
-            email: 'user@example.com',
-            password: 'password123',
+            deviceName: 'device_name',
+            email: 'dev@stainless.com',
+            password: 'password',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -57,9 +57,9 @@ final class CustomerTest extends TestCase
         }
 
         $result = $this->client->customer->login(
-            deviceName: 'iPhone 15',
-            email: 'user@example.com',
-            password: 'password123',
+            deviceName: 'device_name',
+            email: 'dev@stainless.com',
+            password: 'password',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -100,11 +100,11 @@ final class CustomerTest extends TestCase
         }
 
         $result = $this->client->customer->register(
-            deviceName: 'iPhone 15',
-            email: 'john@example.com',
-            name: 'John Doe',
-            password: 'password123',
-            passwordConfirmation: 'password123',
+            deviceName: 'device_name',
+            email: 'dev@stainless.com',
+            name: 'name',
+            password: 'password',
+            passwordConfirmation: 'password_confirmation',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
@@ -119,11 +119,11 @@ final class CustomerTest extends TestCase
         }
 
         $result = $this->client->customer->register(
-            deviceName: 'iPhone 15',
-            email: 'john@example.com',
-            name: 'John Doe',
-            password: 'password123',
-            passwordConfirmation: 'password123',
+            deviceName: 'device_name',
+            email: 'dev@stainless.com',
+            name: 'name',
+            password: 'password',
+            passwordConfirmation: 'password_confirmation',
         );
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType

@@ -8,6 +8,7 @@ use Eat518\Client;
 use Eat518\Core\Contracts\BaseResponse;
 use Eat518\Core\Exceptions\APIException;
 use Eat518\Customer\Channels\ChannelAuthenticateParams;
+use Eat518\Customer\Channels\ChannelAuthenticateResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\ChannelsRawContract;
 
@@ -33,7 +34,7 @@ final class ChannelsRawService implements ChannelsRawContract
      * }|ChannelAuthenticateParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<string>
+     * @return BaseResponse<value-of<ChannelAuthenticateResponse>>
      *
      * @throws APIException
      */
@@ -52,7 +53,7 @@ final class ChannelsRawService implements ChannelsRawContract
             path: 'customer/channels/auth',
             body: (object) $parsed,
             options: $options,
-            convert: 'string',
+            convert: ChannelAuthenticateResponse::class,
         );
     }
 }
