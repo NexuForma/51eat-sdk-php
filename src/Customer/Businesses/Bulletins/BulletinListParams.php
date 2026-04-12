@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses;
+namespace Eat518\Customer\Businesses\Bulletins;
 
 use Eat518\Core\Attributes\Optional;
 use Eat518\Core\Concerns\SdkModel;
@@ -12,15 +12,15 @@ use Eat518\Core\Contracts\BaseModel;
 /**
  * Retrieve business announcements and updates with pagination.
  *
- * @see Eat518\Services\Customer\BusinessesService::getBulletins()
+ * @see Eat518\Services\Customer\Businesses\BulletinsService::list()
  *
- * @phpstan-type BusinessGetBulletinsParamsShape = array{
+ * @phpstan-type BulletinListParamsShape = array{
  *   page?: int|null, perPage?: int|null
  * }
  */
-final class BusinessGetBulletinsParams implements BaseModel
+final class BulletinListParams implements BaseModel
 {
-    /** @use SdkModel<BusinessGetBulletinsParamsShape> */
+    /** @use SdkModel<BulletinListParamsShape> */
     use SdkModel;
     use SdkParams;
 

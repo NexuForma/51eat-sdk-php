@@ -58,6 +58,7 @@ final class CustomerRawService implements CustomerRawContract
             body: (object) $parsed,
             options: $options,
             convert: CustomerLoginResponse::class,
+            security: [],
         );
     }
 
@@ -141,6 +142,7 @@ final class CustomerRawService implements CustomerRawContract
             body: (object) $parsed,
             options: $options,
             convert: CustomerRegisterResponse::class,
+            security: [],
         );
     }
 

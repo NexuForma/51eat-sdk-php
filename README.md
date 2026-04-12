@@ -10,14 +10,12 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
 
-<!-- x-release-please-start-version -->
-
 ```json
 {
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@github.com:NexuForma/51eat-sdk-php.git"
+      "url": "git@github.com:stainless-sdks/eat518-php.git"
     }
   ],
   "require": {
@@ -25,8 +23,6 @@ To use this package, install via Composer by adding the following to your applic
   }
 }
 ```
-
-<!-- x-release-please-end -->
 
 ## Usage
 
@@ -43,11 +39,11 @@ $client = new Client(
 );
 
 $response = $client->customer->register(
-  deviceName: 'REPLACE_ME',
-  email: 'REPLACE_ME',
-  name: 'REPLACE_ME',
-  password: 'REPLACE_ME',
-  passwordConfirmation: 'REPLACE_ME',
+  deviceName: 'device_name',
+  email: 'dev@stainless.com',
+  name: 'name',
+  password: 'password',
+  passwordConfirmation: 'password_confirmation',
 );
 
 var_dump($response->data);
@@ -73,11 +69,11 @@ use Eat518\Core\Exceptions\APIStatusException;
 
 try {
   $response = $client->customer->register(
-    deviceName: 'REPLACE_ME',
-    email: 'REPLACE_ME',
-    name: 'REPLACE_ME',
-    password: 'REPLACE_ME',
-    passwordConfirmation: 'REPLACE_ME',
+    deviceName: 'device_name',
+    email: 'dev@stainless.com',
+    name: 'name',
+    password: 'password',
+    passwordConfirmation: 'password_confirmation',
   );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
@@ -124,11 +120,11 @@ $client = new Client(requestOptions: ['maxRetries' => 0]);
 
 // Or, configure per-request:
 $result = $client->customer->register(
-  deviceName: 'REPLACE_ME',
-  email: 'REPLACE_ME',
-  name: 'REPLACE_ME',
-  password: 'REPLACE_ME',
-  passwordConfirmation: 'REPLACE_ME',
+  deviceName: 'device_name',
+  email: 'dev@stainless.com',
+  name: 'name',
+  password: 'password',
+  passwordConfirmation: 'password_confirmation',
   requestOptions: ['maxRetries' => 5],
 );
 ```
@@ -147,11 +143,11 @@ Note: the `extra*` parameters of the same name overrides the documented paramete
 <?php
 
 $response = $client->customer->register(
-  deviceName: 'REPLACE_ME',
-  email: 'REPLACE_ME',
-  name: 'REPLACE_ME',
-  password: 'REPLACE_ME',
-  passwordConfirmation: 'REPLACE_ME',
+  deviceName: 'device_name',
+  email: 'dev@stainless.com',
+  name: 'name',
+  password: 'password',
+  passwordConfirmation: 'password_confirmation',
   requestOptions: [
     'extraQueryParams' => ['my_query_parameter' => 'value'],
     'extraBodyParams' => ['my_body_parameter' => 'value'],
@@ -192,4 +188,4 @@ PHP 8.1.0 or higher.
 
 ## Contributing
 
-See [the contributing documentation](https://github.com/NexuForma/51eat-sdk-php/tree/main/CONTRIBUTING.md).
+See [the contributing documentation](https://github.com/stainless-sdks/eat518-php/tree/main/CONTRIBUTING.md).

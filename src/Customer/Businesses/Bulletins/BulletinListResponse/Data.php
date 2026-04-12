@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses\BusinessGetBulletinsResponse;
+namespace Eat518\Customer\Businesses\Bulletins\BulletinListResponse;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\BusinessGetBulletinsResponse\Data\Bulletin;
+use Eat518\Customer\Businesses\Bulletins\BulletinListResponse\Data\Bulletin;
 use Eat518\Customer\Businesses\Pagination;
 
 /**
- * @phpstan-import-type BulletinShape from \Eat518\Customer\Businesses\BusinessGetBulletinsResponse\Data\Bulletin
+ * @phpstan-import-type BulletinShape from \Eat518\Customer\Businesses\Bulletins\BulletinListResponse\Data\Bulletin
  * @phpstan-import-type PaginationShape from \Eat518\Customer\Businesses\Pagination
  *
  * @phpstan-type DataShape = array{

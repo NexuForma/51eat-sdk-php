@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses\BusinessGetBulletinsResponse\Data;
+namespace Eat518\Customer\Businesses\Bulletins\BulletinListResponse\Data;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;

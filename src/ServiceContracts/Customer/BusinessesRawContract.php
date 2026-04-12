@@ -6,15 +6,13 @@ namespace Eat518\ServiceContracts\Customer;
 
 use Eat518\Core\Contracts\BaseResponse;
 use Eat518\Core\Exceptions\APIException;
-use Eat518\Customer\Businesses\BusinessGetBulletinsParams;
-use Eat518\Customer\Businesses\BusinessGetBulletinsResponse;
 use Eat518\Customer\Businesses\BusinessGetEventsParams;
 use Eat518\Customer\Businesses\BusinessGetEventsResponse;
 use Eat518\Customer\Businesses\BusinessGetMenusParams;
 use Eat518\Customer\Businesses\BusinessGetMenusResponse;
 use Eat518\Customer\Businesses\BusinessGetPhotosParams;
 use Eat518\Customer\Businesses\BusinessGetPhotosResponse;
-use Eat518\Customer\Businesses\BusinessGetProfileResponse;
+use Eat518\Customer\Businesses\BusinessGetResponse;
 use Eat518\RequestOptions;
 
 /**
@@ -26,17 +24,15 @@ interface BusinessesRawContract
      * @api
      *
      * @param string $handle The business handle
-     * @param array<string,mixed>|BusinessGetBulletinsParams $params
      * @param RequestOpts|null $requestOptions
      *
-     * @return BaseResponse<BusinessGetBulletinsResponse>
+     * @return BaseResponse<BusinessGetResponse>
      *
      * @throws APIException
      */
-    public function getBulletins(
+    public function retrieve(
         string $handle,
-        array|BusinessGetBulletinsParams $params,
-        RequestOptions|array|null $requestOptions = null,
+        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 
     /**
@@ -88,20 +84,5 @@ interface BusinessesRawContract
         string $handle,
         array|BusinessGetPhotosParams $params,
         RequestOptions|array|null $requestOptions = null,
-    ): BaseResponse;
-
-    /**
-     * @api
-     *
-     * @param string $handle The business handle
-     * @param RequestOpts|null $requestOptions
-     *
-     * @return BaseResponse<BusinessGetProfileResponse>
-     *
-     * @throws APIException
-     */
-    public function retrieveProfile(
-        string $handle,
-        RequestOptions|array|null $requestOptions = null
     ): BaseResponse;
 }

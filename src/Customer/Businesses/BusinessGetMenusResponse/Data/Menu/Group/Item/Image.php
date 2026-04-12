@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses;
+namespace Eat518\Customer\Businesses\BusinessGetMenusResponse\Data\Menu\Group\Item;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;

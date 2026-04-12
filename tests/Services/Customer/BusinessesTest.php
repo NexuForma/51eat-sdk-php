@@ -4,11 +4,10 @@ namespace Tests\Services\Customer;
 
 use Eat518\Client;
 use Eat518\Core\Util;
-use Eat518\Customer\Businesses\BusinessGetBulletinsResponse;
 use Eat518\Customer\Businesses\BusinessGetEventsResponse;
 use Eat518\Customer\Businesses\BusinessGetMenusResponse;
 use Eat518\Customer\Businesses\BusinessGetPhotosResponse;
-use Eat518\Customer\Businesses\BusinessGetProfileResponse;
+use Eat518\Customer\Businesses\BusinessGetResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -33,16 +32,16 @@ final class BusinessesTest extends TestCase
     }
 
     #[Test]
-    public function testGetBulletins(): void
+    public function testRetrieve(): void
     {
         if (UnsupportedMockTests::$skip) {
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->customer->businesses->getBulletins('katzs-deli');
+        $result = $this->client->customer->businesses->retrieve('katzs-deli');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(BusinessGetBulletinsResponse::class, $result);
+        $this->assertInstanceOf(BusinessGetResponse::class, $result);
     }
 
     #[Test]
@@ -82,20 +81,5 @@ final class BusinessesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BusinessGetPhotosResponse::class, $result);
-    }
-
-    #[Test]
-    public function testRetrieveProfile(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Mock server tests are disabled');
-        }
-
-        $result = $this->client->customer->businesses->retrieveProfile(
-            'katzs-deli'
-        );
-
-        // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(BusinessGetProfileResponse::class, $result);
     }
 }
