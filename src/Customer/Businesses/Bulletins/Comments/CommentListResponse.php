@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses;
+namespace Eat518\Customer\Businesses\Bulletins\Comments;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\BusinessGetProfileResponse\Data;
 
 /**
- * @phpstan-import-type DataShape from \Eat518\Customer\Businesses\BusinessGetProfileResponse\Data
+ * @phpstan-import-type CommentShape from \Eat518\Customer\Businesses\Bulletins\Comments\Comment
  *
- * @phpstan-type BusinessGetProfileResponseShape = array{data: Data|DataShape}
+ * @phpstan-type CommentListResponseShape = array{data: list<Comment|CommentShape>}
  */
-final class BusinessGetProfileResponse implements BaseModel
+final class CommentListResponse implements BaseModel
 {
-    /** @use SdkModel<BusinessGetProfileResponseShape> */
+    /** @use SdkModel<CommentListResponseShape> */
     use SdkModel;
 
-    #[Required]
-    public Data $data;
+    /** @var list<Comment> $data */
+    #[Required(list: Comment::class)]
+    public array $data;
 
     /**
-     * `new BusinessGetProfileResponse()` is missing required properties by the API.
+     * `new CommentListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BusinessGetProfileResponse::with(data: ...)
+     * CommentListResponse::with(data: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BusinessGetProfileResponse)->withData(...)
+     * (new CommentListResponse)->withData(...)
      * ```
      */
     public function __construct()
@@ -46,9 +46,9 @@ final class BusinessGetProfileResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Data|DataShape $data
+     * @param list<Comment|CommentShape> $data
      */
-    public static function with(Data|array $data): self
+    public static function with(array $data): self
     {
         $self = new self;
 
@@ -58,9 +58,9 @@ final class BusinessGetProfileResponse implements BaseModel
     }
 
     /**
-     * @param Data|DataShape $data
+     * @param list<Comment|CommentShape> $data
      */
-    public function withData(Data|array $data): self
+    public function withData(array $data): self
     {
         $self = clone $this;
         $self['data'] = $data;

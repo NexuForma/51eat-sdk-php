@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses\BusinessGetProfileResponse;
+namespace Eat518\Customer\Businesses\BusinessGetResponse;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\BusinessGetProfileResponse\Data\Hour;
+use Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour;
 
 /**
- * @phpstan-import-type HourShape from \Eat518\Customer\Businesses\BusinessGetProfileResponse\Data\Hour
+ * @phpstan-import-type HourShape from \Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour
  *
  * @phpstan-type DataShape = array{
  *   id: string,

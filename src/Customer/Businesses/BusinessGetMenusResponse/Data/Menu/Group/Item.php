@@ -8,11 +8,11 @@ use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
 use Eat518\Customer\Businesses\BusinessGetMenusResponse\Data\Menu\Group\Item\Allergen;
-use Eat518\Customer\Businesses\Image;
+use Eat518\Customer\Businesses\BusinessGetMenusResponse\Data\Menu\Group\Item\Image;
 
 /**
  * @phpstan-import-type AllergenShape from \Eat518\Customer\Businesses\BusinessGetMenusResponse\Data\Menu\Group\Item\Allergen
- * @phpstan-import-type ImageShape from \Eat518\Customer\Businesses\Image
+ * @phpstan-import-type ImageShape from \Eat518\Customer\Businesses\BusinessGetMenusResponse\Data\Menu\Group\Item\Image
  *
  * @phpstan-type ItemShape = array{
  *   id: string,
