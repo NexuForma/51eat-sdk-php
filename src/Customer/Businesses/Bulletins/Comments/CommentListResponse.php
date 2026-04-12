@@ -7,20 +7,20 @@ namespace Eat518\Customer\Businesses\Bulletins\Comments;
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
+use Eat518\Customer\Businesses\Bulletins\Comments\CommentListResponse\Data;
 
 /**
- * @phpstan-import-type CommentShape from \Eat518\Customer\Businesses\Bulletins\Comments\Comment
+ * @phpstan-import-type DataShape from \Eat518\Customer\Businesses\Bulletins\Comments\CommentListResponse\Data
  *
- * @phpstan-type CommentListResponseShape = array{data: list<Comment|CommentShape>}
+ * @phpstan-type CommentListResponseShape = array{data: Data|DataShape}
  */
 final class CommentListResponse implements BaseModel
 {
     /** @use SdkModel<CommentListResponseShape> */
     use SdkModel;
 
-    /** @var list<Comment> $data */
-    #[Required(list: Comment::class)]
-    public array $data;
+    #[Required]
+    public Data $data;
 
     /**
      * `new CommentListResponse()` is missing required properties by the API.
@@ -46,9 +46,9 @@ final class CommentListResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Comment|CommentShape> $data
+     * @param Data|DataShape $data
      */
-    public static function with(array $data): self
+    public static function with(Data|array $data): self
     {
         $self = new self;
 
@@ -58,9 +58,9 @@ final class CommentListResponse implements BaseModel
     }
 
     /**
-     * @param list<Comment|CommentShape> $data
+     * @param Data|DataShape $data
      */
-    public function withData(array $data): self
+    public function withData(Data|array $data): self
     {
         $self = clone $this;
         $self['data'] = $data;
