@@ -10,7 +10,7 @@ use Eat518\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type DataShape = array{
- *   businessCount: string, label: string, value: string
+ *   businessCount: int, label: string, value: string
  * }
  */
 final class Data implements BaseModel
@@ -19,7 +19,7 @@ final class Data implements BaseModel
     use SdkModel;
 
     #[Required('business_count')]
-    public string $businessCount;
+    public int $businessCount;
 
     #[Required]
     public string $label;
@@ -52,7 +52,7 @@ final class Data implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $businessCount,
+        int $businessCount,
         string $label,
         string $value
     ): self {
@@ -65,7 +65,7 @@ final class Data implements BaseModel
         return $self;
     }
 
-    public function withBusinessCount(string $businessCount): self
+    public function withBusinessCount(int $businessCount): self
     {
         $self = clone $this;
         $self['businessCount'] = $businessCount;

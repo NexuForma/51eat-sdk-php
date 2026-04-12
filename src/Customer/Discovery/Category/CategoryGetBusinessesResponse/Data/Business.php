@@ -24,7 +24,7 @@ use Eat518\Customer\Discovery\Category\CategoryGetBusinessesResponse\Data\Busine
  *   createdAt: string,
  *   description: string,
  *   handle: string,
- *   hasBulletins: string,
+ *   hasBulletins: bool,
  *   latestBulletin: null|LatestBulletin|LatestBulletinShape,
  *   location: Location|LocationShape,
  *   logo: string,
@@ -59,7 +59,7 @@ final class Business implements BaseModel
     public string $handle;
 
     #[Required('has_bulletins')]
-    public string $hasBulletins;
+    public bool $hasBulletins;
 
     #[Required('latest_bulletin')]
     public ?LatestBulletin $latestBulletin;
@@ -139,7 +139,7 @@ final class Business implements BaseModel
         string $createdAt,
         string $description,
         string $handle,
-        string $hasBulletins,
+        bool $hasBulletins,
         LatestBulletin|array|null $latestBulletin,
         Location|array $location,
         string $logo,
@@ -224,7 +224,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withHasBulletins(string $hasBulletins): self
+    public function withHasBulletins(bool $hasBulletins): self
     {
         $self = clone $this;
         $self['hasBulletins'] = $hasBulletins;
