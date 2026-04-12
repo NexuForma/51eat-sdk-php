@@ -7,16 +7,13 @@ namespace Eat518\Customer\Businesses\BusinessGetEventsResponse\Data;
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\Image;
 
 /**
- * @phpstan-import-type ImageShape from \Eat518\Customer\Businesses\Image
- *
  * @phpstan-type EventShape = array{
  *   id: string,
  *   description: string|null,
  *   endsAt: \DateTimeInterface,
- *   image: Image|ImageShape,
+ *   image: string,
  *   startsAt: \DateTimeInterface,
  *   title: string,
  * }
@@ -36,7 +33,7 @@ final class Event implements BaseModel
     public \DateTimeInterface $endsAt;
 
     #[Required]
-    public Image $image;
+    public string $image;
 
     #[Required('starts_at')]
     public \DateTimeInterface $startsAt;
@@ -75,14 +72,12 @@ final class Event implements BaseModel
      * Construct an instance from the required parameters.
      *
      * You must use named parameters to construct any parameters with a default value.
-     *
-     * @param Image|ImageShape $image
      */
     public static function with(
         string $id,
         ?string $description,
         \DateTimeInterface $endsAt,
-        Image|array $image,
+        string $image,
         \DateTimeInterface $startsAt,
         string $title,
     ): self {
@@ -122,10 +117,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    /**
-     * @param Image|ImageShape $image
-     */
-    public function withImage(Image|array $image): self
+    public function withImage(string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
