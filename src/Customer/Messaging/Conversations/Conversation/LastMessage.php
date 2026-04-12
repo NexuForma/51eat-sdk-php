@@ -10,7 +10,7 @@ use Eat518\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type LastMessageShape = array{
- *   id: string, content: string, createdAt: string, senderType: string
+ *   id: string, content: string, createdAt: string
  * }
  */
 final class LastMessage implements BaseModel
@@ -27,25 +27,18 @@ final class LastMessage implements BaseModel
     #[Required('created_at')]
     public string $createdAt;
 
-    #[Required('sender_type')]
-    public string $senderType;
-
     /**
      * `new LastMessage()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * LastMessage::with(id: ..., content: ..., createdAt: ..., senderType: ...)
+     * LastMessage::with(id: ..., content: ..., createdAt: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new LastMessage)
-     *   ->withID(...)
-     *   ->withContent(...)
-     *   ->withCreatedAt(...)
-     *   ->withSenderType(...)
+     * (new LastMessage)->withID(...)->withContent(...)->withCreatedAt(...)
      * ```
      */
     public function __construct()
@@ -61,15 +54,13 @@ final class LastMessage implements BaseModel
     public static function with(
         string $id,
         string $content,
-        string $createdAt,
-        string $senderType
+        string $createdAt
     ): self {
         $self = new self;
 
         $self['id'] = $id;
         $self['content'] = $content;
         $self['createdAt'] = $createdAt;
-        $self['senderType'] = $senderType;
 
         return $self;
     }
@@ -94,14 +85,6 @@ final class LastMessage implements BaseModel
     {
         $self = clone $this;
         $self['createdAt'] = $createdAt;
-
-        return $self;
-    }
-
-    public function withSenderType(string $senderType): self
-    {
-        $self = clone $this;
-        $self['senderType'] = $senderType;
 
         return $self;
     }

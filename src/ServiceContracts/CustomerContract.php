@@ -20,9 +20,6 @@ interface CustomerContract
     /**
      * @api
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The user's email address
-     * @param string $password The user's password
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -59,11 +56,6 @@ interface CustomerContract
     /**
      * @api
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The customer's email address
-     * @param string $name The customer's full name
-     * @param string $password The customer's password
-     * @param string $passwordConfirmation Password confirmation
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException

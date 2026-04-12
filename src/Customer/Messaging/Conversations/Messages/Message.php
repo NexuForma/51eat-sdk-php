@@ -23,7 +23,6 @@ use Eat518\Customer\Messaging\Conversations\Messages\Message\Sender;
  *   messageType: string,
  *   metadata: list<mixed>|null,
  *   senderID: string,
- *   senderType: string,
  *   updatedAt: string,
  *   sender?: null|Sender|SenderShape,
  * }
@@ -61,9 +60,6 @@ final class Message implements BaseModel
     #[Required('sender_id')]
     public string $senderID;
 
-    #[Required('sender_type')]
-    public string $senderType;
-
     #[Required('updated_at')]
     public string $updatedAt;
 
@@ -85,7 +81,6 @@ final class Message implements BaseModel
      *   messageType: ...,
      *   metadata: ...,
      *   senderID: ...,
-     *   senderType: ...,
      *   updatedAt: ...,
      * )
      * ```
@@ -103,7 +98,6 @@ final class Message implements BaseModel
      *   ->withMessageType(...)
      *   ->withMetadata(...)
      *   ->withSenderID(...)
-     *   ->withSenderType(...)
      *   ->withUpdatedAt(...)
      * ```
      */
@@ -130,7 +124,6 @@ final class Message implements BaseModel
         string $messageType,
         ?array $metadata,
         string $senderID,
-        string $senderType,
         string $updatedAt,
         Sender|array|null $sender = null,
     ): self {
@@ -145,7 +138,6 @@ final class Message implements BaseModel
         $self['messageType'] = $messageType;
         $self['metadata'] = $metadata;
         $self['senderID'] = $senderID;
-        $self['senderType'] = $senderType;
         $self['updatedAt'] = $updatedAt;
 
         null !== $sender && $self['sender'] = $sender;
@@ -224,14 +216,6 @@ final class Message implements BaseModel
     {
         $self = clone $this;
         $self['senderID'] = $senderID;
-
-        return $self;
-    }
-
-    public function withSenderType(string $senderType): self
-    {
-        $self = clone $this;
-        $self['senderType'] = $senderType;
 
         return $self;
     }

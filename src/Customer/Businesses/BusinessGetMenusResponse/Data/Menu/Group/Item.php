@@ -20,7 +20,7 @@ use Eat518\Customer\Businesses\Image;
  *   description: string|null,
  *   image: Image|ImageShape,
  *   name: string,
- *   price: string|null,
+ *   price: float|null,
  * }
  */
 final class Item implements BaseModel
@@ -45,7 +45,7 @@ final class Item implements BaseModel
     public string $name;
 
     #[Required]
-    public ?string $price;
+    public ?float $price;
 
     /**
      * `new Item()` is missing required properties by the API.
@@ -88,7 +88,7 @@ final class Item implements BaseModel
         ?string $description,
         Image|array $image,
         string $name,
-        ?string $price,
+        ?float $price,
     ): self {
         $self = new self;
 
@@ -148,7 +148,7 @@ final class Item implements BaseModel
         return $self;
     }
 
-    public function withPrice(?string $price): self
+    public function withPrice(?float $price): self
     {
         $self = clone $this;
         $self['price'] = $price;
