@@ -14,6 +14,7 @@ use Eat518\Customer\Businesses\BusinessGetResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\BusinessesContract;
 use Eat518\Services\Customer\Businesses\BulletinsService;
+use Eat518\Services\Customer\Businesses\RsvpService;
 
 /**
  * @phpstan-import-type RequestOpts from \Eat518\RequestOptions
@@ -31,12 +32,18 @@ final class BusinessesService implements BusinessesContract
     public BulletinsService $bulletins;
 
     /**
+     * @api
+     */
+    public RsvpService $rsvp;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
     {
         $this->raw = new BusinessesRawService($client);
         $this->bulletins = new BulletinsService($client);
+        $this->rsvp = new RsvpService($client);
     }
 
     /**
