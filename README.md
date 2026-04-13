@@ -6,6 +6,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
+The REST API documentation can be found on [51eat.co](https://51eat.co/docs/api).
+
 ## Installation
 
 To use this package, install via Composer by adding the following to your application's `composer.json`:
@@ -39,7 +41,8 @@ Parameters with a default value must be set by name.
 use Eat518\Client;
 
 $client = new Client(
-  httpSecurity: getenv('EAT518_HTTP_SECURITY') ?: 'My HTTP Security'
+  httpSecurity: getenv('EAT518_HTTP_SECURITY') ?: 'My HTTP Security',
+  environment: 'staging',
 );
 
 $response = $client->customer->register(
