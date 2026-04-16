@@ -8,6 +8,7 @@ use Eat518\Core\Exceptions\APIException;
 use Eat518\Customer\Events\EventCalculatePriceParams\Ticket;
 use Eat518\Customer\Events\EventCalculatePriceResponse;
 use Eat518\Customer\Events\EventConfirmTicketOrderResponse\Data;
+use Eat518\Customer\Events\EventListResponse;
 use Eat518\Customer\Events\EventNewPaymentIntentResponse;
 use Eat518\RequestOptions;
 
@@ -17,6 +18,25 @@ use Eat518\RequestOptions;
  */
 interface EventsContract
 {
+    /**
+     * @api
+     *
+     * @param string $dateFrom Lower bound for event start date (ISO 8601). Defaults to now.
+     * @param string $dateTo upper bound for event start date (ISO 8601)
+     * @param int $page Page number
+     * @param int $perPage Number of events per page
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function list(
+        ?string $dateFrom = null,
+        ?string $dateTo = null,
+        ?int $page = null,
+        ?int $perPage = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): EventListResponse;
+
     /**
      * @api
      *

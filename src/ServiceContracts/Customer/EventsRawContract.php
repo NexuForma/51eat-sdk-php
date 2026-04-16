@@ -11,6 +11,8 @@ use Eat518\Customer\Events\EventCalculatePriceResponse;
 use Eat518\Customer\Events\EventConfirmTicketOrderParams;
 use Eat518\Customer\Events\EventConfirmTicketOrderResponse\Data;
 use Eat518\Customer\Events\EventCreatePaymentIntentParams;
+use Eat518\Customer\Events\EventListParams;
+use Eat518\Customer\Events\EventListResponse;
 use Eat518\Customer\Events\EventNewPaymentIntentResponse;
 use Eat518\RequestOptions;
 
@@ -19,6 +21,21 @@ use Eat518\RequestOptions;
  */
 interface EventsRawContract
 {
+    /**
+     * @api
+     *
+     * @param array<string,mixed>|EventListParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<EventListResponse>
+     *
+     * @throws APIException
+     */
+    public function list(
+        array|EventListParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse;
+
     /**
      * @api
      *
