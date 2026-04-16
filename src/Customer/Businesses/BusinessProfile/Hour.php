@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Favorites\FavoriteListResponse\Data\Business;
+namespace Eat518\Customer\Businesses\BusinessProfile;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;

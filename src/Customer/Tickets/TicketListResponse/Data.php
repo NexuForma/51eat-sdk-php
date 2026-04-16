@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Favorites\FavoriteListResponse;
+namespace Eat518\Customer\Tickets\TicketListResponse;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\BusinessProfile;
 use Eat518\Customer\Businesses\Pagination;
+use Eat518\Customer\Tickets\Ticket;
 
 /**
- * @phpstan-import-type BusinessProfileShape from \Eat518\Customer\Businesses\BusinessProfile
  * @phpstan-import-type PaginationShape from \Eat518\Customer\Businesses\Pagination
+ * @phpstan-import-type TicketShape from \Eat518\Customer\Tickets\Ticket
  *
  * @phpstan-type DataShape = array{
- *   businesses: list<BusinessProfile|BusinessProfileShape>,
- *   pagination: Pagination|PaginationShape,
+ *   pagination: Pagination|PaginationShape, tickets: list<Ticket|TicketShape>
  * }
  */
 final class Data implements BaseModel
@@ -24,25 +23,25 @@ final class Data implements BaseModel
     /** @use SdkModel<DataShape> */
     use SdkModel;
 
-    /** @var list<BusinessProfile> $businesses */
-    #[Required(list: BusinessProfile::class)]
-    public array $businesses;
-
     #[Required]
     public Pagination $pagination;
+
+    /** @var list<Ticket> $tickets */
+    #[Required(list: Ticket::class)]
+    public array $tickets;
 
     /**
      * `new Data()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Data::with(businesses: ..., pagination: ...)
+     * Data::with(pagination: ..., tickets: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Data)->withBusinesses(...)->withPagination(...)
+     * (new Data)->withPagination(...)->withTickets(...)
      * ```
      */
     public function __construct()
@@ -55,28 +54,17 @@ final class Data implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<BusinessProfile|BusinessProfileShape> $businesses
      * @param Pagination|PaginationShape $pagination
+     * @param list<Ticket|TicketShape> $tickets
      */
     public static function with(
-        array $businesses,
-        Pagination|array $pagination
+        Pagination|array $pagination,
+        array $tickets
     ): self {
         $self = new self;
 
-        $self['businesses'] = $businesses;
         $self['pagination'] = $pagination;
-
-        return $self;
-    }
-
-    /**
-     * @param list<BusinessProfile|BusinessProfileShape> $businesses
-     */
-    public function withBusinesses(array $businesses): self
-    {
-        $self = clone $this;
-        $self['businesses'] = $businesses;
+        $self['tickets'] = $tickets;
 
         return $self;
     }
@@ -88,6 +76,17 @@ final class Data implements BaseModel
     {
         $self = clone $this;
         $self['pagination'] = $pagination;
+
+        return $self;
+    }
+
+    /**
+     * @param list<Ticket|TicketShape> $tickets
+     */
+    public function withTickets(array $tickets): self
+    {
+        $self = clone $this;
+        $self['tickets'] = $tickets;
 
         return $self;
     }

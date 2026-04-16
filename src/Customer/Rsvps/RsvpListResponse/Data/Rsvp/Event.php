@@ -8,10 +8,10 @@ use Eat518\Core\Attributes\Optional;
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Rsvps\RsvpListResponse\Data\Rsvp\Event\Business;
+use Eat518\Customer\Businesses\BusinessProfile;
 
 /**
- * @phpstan-import-type BusinessShape from \Eat518\Customer\Rsvps\RsvpListResponse\Data\Rsvp\Event\Business
+ * @phpstan-import-type BusinessProfileShape from \Eat518\Customer\Businesses\BusinessProfile
  *
  * @phpstan-type EventShape = array{
  *   id: string,
@@ -22,7 +22,7 @@ use Eat518\Customer\Rsvps\RsvpListResponse\Data\Rsvp\Event\Business;
  *   location: string,
  *   startsAt: string,
  *   title: string,
- *   business?: null|Business|BusinessShape,
+ *   business?: null|BusinessProfile|BusinessProfileShape,
  * }
  */
 final class Event implements BaseModel
@@ -55,7 +55,7 @@ final class Event implements BaseModel
     public string $title;
 
     #[Optional]
-    public ?Business $business;
+    public ?BusinessProfile $business;
 
     /**
      * `new Event()` is missing required properties by the API.
@@ -98,7 +98,7 @@ final class Event implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param Business|BusinessShape|null $business
+     * @param BusinessProfile|BusinessProfileShape|null $business
      */
     public static function with(
         string $id,
@@ -109,7 +109,7 @@ final class Event implements BaseModel
         string $location,
         string $startsAt,
         string $title,
-        Business|array|null $business = null,
+        BusinessProfile|array|null $business = null,
     ): self {
         $self = new self;
 
@@ -192,9 +192,9 @@ final class Event implements BaseModel
     }
 
     /**
-     * @param Business|BusinessShape $business
+     * @param BusinessProfile|BusinessProfileShape $business
      */
-    public function withBusiness(Business|array $business): self
+    public function withBusiness(BusinessProfile|array $business): self
     {
         $self = clone $this;
         $self['business'] = $business;

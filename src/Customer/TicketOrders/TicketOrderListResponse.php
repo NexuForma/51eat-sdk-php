@@ -2,39 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses;
+namespace Eat518\Customer\TicketOrders;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
+use Eat518\Customer\TicketOrders\TicketOrderListResponse\Data;
 
 /**
- * @phpstan-import-type BusinessProfileShape from \Eat518\Customer\Businesses\BusinessProfile
+ * @phpstan-import-type DataShape from \Eat518\Customer\TicketOrders\TicketOrderListResponse\Data
  *
- * @phpstan-type BusinessGetResponseShape = array{
- *   data: BusinessProfile|BusinessProfileShape
- * }
+ * @phpstan-type TicketOrderListResponseShape = array{data: Data|DataShape}
  */
-final class BusinessGetResponse implements BaseModel
+final class TicketOrderListResponse implements BaseModel
 {
-    /** @use SdkModel<BusinessGetResponseShape> */
+    /** @use SdkModel<TicketOrderListResponseShape> */
     use SdkModel;
 
     #[Required]
-    public BusinessProfile $data;
+    public Data $data;
 
     /**
-     * `new BusinessGetResponse()` is missing required properties by the API.
+     * `new TicketOrderListResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BusinessGetResponse::with(data: ...)
+     * TicketOrderListResponse::with(data: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BusinessGetResponse)->withData(...)
+     * (new TicketOrderListResponse)->withData(...)
      * ```
      */
     public function __construct()
@@ -47,9 +46,9 @@ final class BusinessGetResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BusinessProfile|BusinessProfileShape $data
+     * @param Data|DataShape $data
      */
-    public static function with(BusinessProfile|array $data): self
+    public static function with(Data|array $data): self
     {
         $self = new self;
 
@@ -59,9 +58,9 @@ final class BusinessGetResponse implements BaseModel
     }
 
     /**
-     * @param BusinessProfile|BusinessProfileShape $data
+     * @param Data|DataShape $data
      */
-    public function withData(BusinessProfile|array $data): self
+    public function withData(Data|array $data): self
     {
         $self = clone $this;
         $self['data'] = $data;
