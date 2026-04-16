@@ -7,6 +7,7 @@ namespace Eat518\Services\Customer;
 use Eat518\Client;
 use Eat518\Core\Contracts\BaseResponse;
 use Eat518\Core\Exceptions\APIException;
+use Eat518\Core\Util;
 use Eat518\Customer\Events\EventCalculatePriceParams;
 use Eat518\Customer\Events\EventCalculatePriceParams\Ticket;
 use Eat518\Customer\Events\EventCalculatePriceResponse;
@@ -14,6 +15,8 @@ use Eat518\Customer\Events\EventConfirmTicketOrderParams;
 use Eat518\Customer\Events\EventConfirmTicketOrderResponse;
 use Eat518\Customer\Events\EventConfirmTicketOrderResponse\Data;
 use Eat518\Customer\Events\EventCreatePaymentIntentParams;
+use Eat518\Customer\Events\EventListParams;
+use Eat518\Customer\Events\EventListResponse;
 use Eat518\Customer\Events\EventNewPaymentIntentResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\EventsRawContract;
@@ -29,6 +32,48 @@ final class EventsRawService implements EventsRawContract
      * @internal
      */
     public function __construct(private Client $client) {}
+
+    /**
+     * @api
+     *
+     * Retrieve a paginated feed of upcoming events across all businesses.
+     * Defaults to all events starting from now, ordered by start date ascending.
+     * Optionally filter by a date range using date_from and date_to.
+     *
+     * @param array{
+     *   dateFrom?: string, dateTo?: string, page?: int, perPage?: int
+     * }|EventListParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<EventListResponse>
+     *
+     * @throws APIException
+     */
+    public function list(
+        array|EventListParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = EventListParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: 'customer/events',
+            query: Util::array_transform_keys(
+                $parsed,
+                [
+                    'dateFrom' => 'date_from',
+                    'dateTo' => 'date_to',
+                    'perPage' => 'per_page',
+                ],
+            ),
+            options: $options,
+            convert: EventListResponse::class,
+        );
+    }
 
     /**
      * @api

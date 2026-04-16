@@ -10,6 +10,7 @@ use Eat518\Core\Util;
 use Eat518\Customer\Events\EventCalculatePriceParams\Ticket;
 use Eat518\Customer\Events\EventCalculatePriceResponse;
 use Eat518\Customer\Events\EventConfirmTicketOrderResponse\Data;
+use Eat518\Customer\Events\EventListResponse;
 use Eat518\Customer\Events\EventNewPaymentIntentResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\EventsContract;
@@ -38,6 +39,43 @@ final class EventsService implements EventsContract
     {
         $this->raw = new EventsRawService($client);
         $this->ticketHolds = new TicketHoldsService($client);
+    }
+
+    /**
+     * @api
+     *
+     * Retrieve a paginated feed of upcoming events across all businesses.
+     * Defaults to all events starting from now, ordered by start date ascending.
+     * Optionally filter by a date range using date_from and date_to.
+     *
+     * @param string $dateFrom Lower bound for event start date (ISO 8601). Defaults to now.
+     * @param string $dateTo upper bound for event start date (ISO 8601)
+     * @param int $page Page number
+     * @param int $perPage Number of events per page
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function list(
+        ?string $dateFrom = null,
+        ?string $dateTo = null,
+        ?int $page = null,
+        ?int $perPage = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): EventListResponse {
+        $params = Util::removeNulls(
+            [
+                'dateFrom' => $dateFrom,
+                'dateTo' => $dateTo,
+                'page' => $page,
+                'perPage' => $perPage,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->list(params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
