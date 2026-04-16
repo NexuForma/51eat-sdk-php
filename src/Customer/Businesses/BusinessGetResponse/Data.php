@@ -19,8 +19,10 @@ use Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour;
  *   city: string,
  *   coverPhoto: string,
  *   description: string,
+ *   favoritesCount: string,
  *   handle: string,
  *   hours: array<string,Hour|HourShape>,
+ *   isFavorited: string,
  *   latitude: float,
  *   logo: string,
  *   longitude: float,
@@ -54,12 +56,18 @@ final class Data implements BaseModel
     #[Required]
     public string $description;
 
+    #[Required('favorites_count')]
+    public string $favoritesCount;
+
     #[Required]
     public string $handle;
 
     /** @var array<string,Hour> $hours */
     #[Required(map: Hour::class)]
     public array $hours;
+
+    #[Required('is_favorited')]
+    public string $isFavorited;
 
     #[Required]
     public float $latitude;
@@ -97,8 +105,10 @@ final class Data implements BaseModel
      *   city: ...,
      *   coverPhoto: ...,
      *   description: ...,
+     *   favoritesCount: ...,
      *   handle: ...,
      *   hours: ...,
+     *   isFavorited: ...,
      *   latitude: ...,
      *   logo: ...,
      *   longitude: ...,
@@ -120,8 +130,10 @@ final class Data implements BaseModel
      *   ->withCity(...)
      *   ->withCoverPhoto(...)
      *   ->withDescription(...)
+     *   ->withFavoritesCount(...)
      *   ->withHandle(...)
      *   ->withHours(...)
+     *   ->withIsFavorited(...)
      *   ->withLatitude(...)
      *   ->withLogo(...)
      *   ->withLongitude(...)
@@ -151,8 +163,10 @@ final class Data implements BaseModel
         string $city,
         string $coverPhoto,
         string $description,
+        string $favoritesCount,
         string $handle,
         array $hours,
+        string $isFavorited,
         float $latitude,
         string $logo,
         float $longitude,
@@ -170,8 +184,10 @@ final class Data implements BaseModel
         $self['city'] = $city;
         $self['coverPhoto'] = $coverPhoto;
         $self['description'] = $description;
+        $self['favoritesCount'] = $favoritesCount;
         $self['handle'] = $handle;
         $self['hours'] = $hours;
+        $self['isFavorited'] = $isFavorited;
         $self['latitude'] = $latitude;
         $self['logo'] = $logo;
         $self['longitude'] = $longitude;
@@ -232,6 +248,14 @@ final class Data implements BaseModel
         return $self;
     }
 
+    public function withFavoritesCount(string $favoritesCount): self
+    {
+        $self = clone $this;
+        $self['favoritesCount'] = $favoritesCount;
+
+        return $self;
+    }
+
     public function withHandle(string $handle): self
     {
         $self = clone $this;
@@ -247,6 +271,14 @@ final class Data implements BaseModel
     {
         $self = clone $this;
         $self['hours'] = $hours;
+
+        return $self;
+    }
+
+    public function withIsFavorited(string $isFavorited): self
+    {
+        $self = clone $this;
+        $self['isFavorited'] = $isFavorited;
 
         return $self;
     }
