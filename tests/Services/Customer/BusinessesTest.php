@@ -4,9 +4,6 @@ namespace Tests\Services\Customer;
 
 use Eat518\Client;
 use Eat518\Core\Util;
-use Eat518\Customer\Businesses\BusinessGetEventsResponse;
-use Eat518\Customer\Businesses\BusinessGetMenusResponse;
-use Eat518\Customer\Businesses\BusinessGetPhotosResponse;
 use Eat518\Customer\Businesses\BusinessGetResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
@@ -42,44 +39,5 @@ final class BusinessesTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(BusinessGetResponse::class, $result);
-    }
-
-    #[Test]
-    public function testGetEvents(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Mock server tests are disabled');
-        }
-
-        $result = $this->client->customer->businesses->getEvents('katzs-deli');
-
-        // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(BusinessGetEventsResponse::class, $result);
-    }
-
-    #[Test]
-    public function testGetMenus(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Mock server tests are disabled');
-        }
-
-        $result = $this->client->customer->businesses->getMenus('katzs-deli');
-
-        // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(BusinessGetMenusResponse::class, $result);
-    }
-
-    #[Test]
-    public function testGetPhotos(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Mock server tests are disabled');
-        }
-
-        $result = $this->client->customer->businesses->getPhotos('katzs-deli');
-
-        // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(BusinessGetPhotosResponse::class, $result);
     }
 }
