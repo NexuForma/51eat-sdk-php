@@ -13,6 +13,8 @@ use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterParams;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchParams;
+use Eat518\Customer\CustomerSearchResponse;
 use Eat518\RequestOptions;
 
 /**
@@ -87,5 +89,20 @@ interface CustomerRawContract
      */
     public function retrieveUser(
         RequestOptions|array|null $requestOptions = null
+    ): BaseResponse;
+
+    /**
+     * @api
+     *
+     * @param array<string,mixed>|CustomerSearchParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<CustomerSearchResponse>
+     *
+     * @throws APIException
+     */
+    public function search(
+        array|CustomerSearchParams $params,
+        RequestOptions|array|null $requestOptions = null,
     ): BaseResponse;
 }

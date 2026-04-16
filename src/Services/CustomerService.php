@@ -12,6 +12,7 @@ use Eat518\Customer\CustomerLoginResponse;
 use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\CustomerContract;
 use Eat518\Services\Customer\BusinessesService;
@@ -197,6 +198,51 @@ final class CustomerService implements CustomerContract
     ): CustomerGetUserResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieveUser(requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Returns grouped results for each type. Use per_type to control how many results
+     * appear per section. Optionally filter by category, city, or geo radius.
+     *
+     * @param string $q Search query
+     * @param string $category Filter by business category
+     * @param string $city Filter by city
+     * @param mixed $lat Latitude for geo radius filter (requires lng and radius_km)
+     * @param mixed $lng Longitude for geo radius filter (requires lat and radius_km)
+     * @param int $perType Max results per type (default 5, max 20)
+     * @param int $radiusKm Geo radius in kilometers (requires lat and lng)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function search(
+        string $q,
+        ?string $category = null,
+        ?string $city = null,
+        mixed $lat = null,
+        mixed $lng = null,
+        ?int $perType = null,
+        ?int $radiusKm = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): CustomerSearchResponse {
+        $params = Util::removeNulls(
+            [
+                'q' => $q,
+                'category' => $category,
+                'city' => $city,
+                'lat' => $lat,
+                'lng' => $lng,
+                'perType' => $perType,
+                'radiusKm' => $radiusKm,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->search(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }
