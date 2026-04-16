@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Eat518\Customer\Businesses\Events\EventListResponse\Data;
 
+use Eat518\Core\Attributes\Optional;
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
@@ -14,8 +15,15 @@ use Eat518\Core\Contracts\BaseModel;
  *   description: string|null,
  *   endsAt: \DateTimeInterface,
  *   image: string,
+ *   isFeatured: bool,
+ *   location: string|null,
+ *   rsvpCount: string,
  *   startsAt: \DateTimeInterface,
+ *   ticketSalesEnabled: bool,
  *   title: string,
+ *   ticketPriceFrom?: string|null,
+ *   userHasTickets?: bool|null,
+ *   userRsvpStatus?: string|null,
  * }
  */
 final class Event implements BaseModel
@@ -35,11 +43,32 @@ final class Event implements BaseModel
     #[Required]
     public string $image;
 
+    #[Required('is_featured')]
+    public bool $isFeatured;
+
+    #[Required]
+    public ?string $location;
+
+    #[Required('rsvp_count')]
+    public string $rsvpCount;
+
     #[Required('starts_at')]
     public \DateTimeInterface $startsAt;
 
+    #[Required('ticket_sales_enabled')]
+    public bool $ticketSalesEnabled;
+
     #[Required]
     public string $title;
+
+    #[Optional('ticket_price_from')]
+    public ?string $ticketPriceFrom;
+
+    #[Optional('user_has_tickets')]
+    public ?bool $userHasTickets;
+
+    #[Optional('user_rsvp_status')]
+    public ?string $userRsvpStatus;
 
     /**
      * `new Event()` is missing required properties by the API.
@@ -47,7 +76,16 @@ final class Event implements BaseModel
      * To enforce required parameters use
      * ```
      * Event::with(
-     *   id: ..., description: ..., endsAt: ..., image: ..., startsAt: ..., title: ...
+     *   id: ...,
+     *   description: ...,
+     *   endsAt: ...,
+     *   image: ...,
+     *   isFeatured: ...,
+     *   location: ...,
+     *   rsvpCount: ...,
+     *   startsAt: ...,
+     *   ticketSalesEnabled: ...,
+     *   title: ...,
      * )
      * ```
      *
@@ -59,7 +97,11 @@ final class Event implements BaseModel
      *   ->withDescription(...)
      *   ->withEndsAt(...)
      *   ->withImage(...)
+     *   ->withIsFeatured(...)
+     *   ->withLocation(...)
+     *   ->withRsvpCount(...)
      *   ->withStartsAt(...)
+     *   ->withTicketSalesEnabled(...)
      *   ->withTitle(...)
      * ```
      */
@@ -78,8 +120,15 @@ final class Event implements BaseModel
         ?string $description,
         \DateTimeInterface $endsAt,
         string $image,
+        bool $isFeatured,
+        ?string $location,
+        string $rsvpCount,
         \DateTimeInterface $startsAt,
+        bool $ticketSalesEnabled,
         string $title,
+        ?string $ticketPriceFrom = null,
+        ?bool $userHasTickets = null,
+        ?string $userRsvpStatus = null,
     ): self {
         $self = new self;
 
@@ -87,8 +136,16 @@ final class Event implements BaseModel
         $self['description'] = $description;
         $self['endsAt'] = $endsAt;
         $self['image'] = $image;
+        $self['isFeatured'] = $isFeatured;
+        $self['location'] = $location;
+        $self['rsvpCount'] = $rsvpCount;
         $self['startsAt'] = $startsAt;
+        $self['ticketSalesEnabled'] = $ticketSalesEnabled;
         $self['title'] = $title;
+
+        null !== $ticketPriceFrom && $self['ticketPriceFrom'] = $ticketPriceFrom;
+        null !== $userHasTickets && $self['userHasTickets'] = $userHasTickets;
+        null !== $userRsvpStatus && $self['userRsvpStatus'] = $userRsvpStatus;
 
         return $self;
     }
@@ -125,6 +182,30 @@ final class Event implements BaseModel
         return $self;
     }
 
+    public function withIsFeatured(bool $isFeatured): self
+    {
+        $self = clone $this;
+        $self['isFeatured'] = $isFeatured;
+
+        return $self;
+    }
+
+    public function withLocation(?string $location): self
+    {
+        $self = clone $this;
+        $self['location'] = $location;
+
+        return $self;
+    }
+
+    public function withRsvpCount(string $rsvpCount): self
+    {
+        $self = clone $this;
+        $self['rsvpCount'] = $rsvpCount;
+
+        return $self;
+    }
+
     public function withStartsAt(\DateTimeInterface $startsAt): self
     {
         $self = clone $this;
@@ -133,10 +214,42 @@ final class Event implements BaseModel
         return $self;
     }
 
+    public function withTicketSalesEnabled(bool $ticketSalesEnabled): self
+    {
+        $self = clone $this;
+        $self['ticketSalesEnabled'] = $ticketSalesEnabled;
+
+        return $self;
+    }
+
     public function withTitle(string $title): self
     {
         $self = clone $this;
         $self['title'] = $title;
+
+        return $self;
+    }
+
+    public function withTicketPriceFrom(string $ticketPriceFrom): self
+    {
+        $self = clone $this;
+        $self['ticketPriceFrom'] = $ticketPriceFrom;
+
+        return $self;
+    }
+
+    public function withUserHasTickets(bool $userHasTickets): self
+    {
+        $self = clone $this;
+        $self['userHasTickets'] = $userHasTickets;
+
+        return $self;
+    }
+
+    public function withUserRsvpStatus(string $userRsvpStatus): self
+    {
+        $self = clone $this;
+        $self['userRsvpStatus'] = $userRsvpStatus;
 
         return $self;
     }
