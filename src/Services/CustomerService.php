@@ -18,7 +18,9 @@ use Eat518\Services\Customer\BusinessesService;
 use Eat518\Services\Customer\ChannelsService;
 use Eat518\Services\Customer\DiscoveryService;
 use Eat518\Services\Customer\ExploreService;
+use Eat518\Services\Customer\FavoritesService;
 use Eat518\Services\Customer\MessagingService;
+use Eat518\Services\Customer\RsvpsService;
 use Eat518\Services\Customer\TokensService;
 
 /**
@@ -40,6 +42,16 @@ final class CustomerService implements CustomerContract
      * @api
      */
     public ChannelsService $channels;
+
+    /**
+     * @api
+     */
+    public FavoritesService $favorites;
+
+    /**
+     * @api
+     */
+    public RsvpsService $rsvps;
 
     /**
      * @api
@@ -69,6 +81,8 @@ final class CustomerService implements CustomerContract
         $this->raw = new CustomerRawService($client);
         $this->tokens = new TokensService($client);
         $this->channels = new ChannelsService($client);
+        $this->favorites = new FavoritesService($client);
+        $this->rsvps = new RsvpsService($client);
         $this->businesses = new BusinessesService($client);
         $this->messaging = new MessagingService($client);
         $this->explore = new ExploreService($client);
