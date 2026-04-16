@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Services\Customer\Businesses;
+namespace Tests\Services\Customer;
 
 use Eat518\Client;
 use Eat518\Core\Util;
-use Eat518\Customer\Businesses\Events\EventGetResponse;
-use Eat518\Customer\Businesses\Events\EventListResponse;
+use Eat518\Customer\TicketOrders\TicketOrderGetResponse;
+use Eat518\Customer\TicketOrders\TicketOrderListResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ use Tests\UnsupportedMockTests;
  * @internal
  */
 #[CoversNothing]
-final class EventsTest extends TestCase
+final class TicketOrdersTest extends TestCase
 {
     protected Client $client;
 
@@ -36,29 +36,10 @@ final class EventsTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->customer->businesses->events->retrieve(
-            'eventId',
-            handle: 'katzs-deli'
-        );
+        $result = $this->client->customer->ticketOrders->retrieve('orderId');
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(EventGetResponse::class, $result);
-    }
-
-    #[Test]
-    public function testRetrieveWithOptionalParams(): void
-    {
-        if (UnsupportedMockTests::$skip) {
-            $this->markTestSkipped('Mock server tests are disabled');
-        }
-
-        $result = $this->client->customer->businesses->events->retrieve(
-            'eventId',
-            handle: 'katzs-deli'
-        );
-
-        // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(EventGetResponse::class, $result);
+        $this->assertInstanceOf(TicketOrderGetResponse::class, $result);
     }
 
     #[Test]
@@ -68,9 +49,9 @@ final class EventsTest extends TestCase
             $this->markTestSkipped('Mock server tests are disabled');
         }
 
-        $result = $this->client->customer->businesses->events->list('katzs-deli');
+        $result = $this->client->customer->ticketOrders->list();
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
-        $this->assertInstanceOf(EventListResponse::class, $result);
+        $this->assertInstanceOf(TicketOrderListResponse::class, $result);
     }
 }

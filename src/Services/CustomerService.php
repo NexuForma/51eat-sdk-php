@@ -18,10 +18,13 @@ use Eat518\ServiceContracts\CustomerContract;
 use Eat518\Services\Customer\BusinessesService;
 use Eat518\Services\Customer\ChannelsService;
 use Eat518\Services\Customer\DiscoveryService;
+use Eat518\Services\Customer\EventsService;
 use Eat518\Services\Customer\ExploreService;
 use Eat518\Services\Customer\FavoritesService;
 use Eat518\Services\Customer\MessagingService;
 use Eat518\Services\Customer\RsvpsService;
+use Eat518\Services\Customer\TicketOrdersService;
+use Eat518\Services\Customer\TicketsService;
 use Eat518\Services\Customer\TokensService;
 
 /**
@@ -75,6 +78,21 @@ final class CustomerService implements CustomerContract
     public DiscoveryService $discovery;
 
     /**
+     * @api
+     */
+    public TicketsService $tickets;
+
+    /**
+     * @api
+     */
+    public TicketOrdersService $ticketOrders;
+
+    /**
+     * @api
+     */
+    public EventsService $events;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
@@ -88,6 +106,9 @@ final class CustomerService implements CustomerContract
         $this->messaging = new MessagingService($client);
         $this->explore = new ExploreService($client);
         $this->discovery = new DiscoveryService($client);
+        $this->tickets = new TicketsService($client);
+        $this->ticketOrders = new TicketOrdersService($client);
+        $this->events = new EventsService($client);
     }
 
     /**

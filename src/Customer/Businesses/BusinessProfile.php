@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses\BusinessGetResponse;
+namespace Eat518\Customer\Businesses;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour;
+use Eat518\Customer\Businesses\BusinessProfile\Hour;
 
 /**
- * @phpstan-import-type HourShape from \Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour
+ * @phpstan-import-type HourShape from \Eat518\Customer\Businesses\BusinessProfile\Hour
  *
- * @phpstan-type DataShape = array{
+ * @phpstan-type BusinessProfileShape = array{
  *   id: string,
  *   address: string,
  *   category: string,
@@ -33,9 +33,9 @@ use Eat518\Customer\Businesses\BusinessGetResponse\Data\Hour;
  *   zip: string,
  * }
  */
-final class Data implements BaseModel
+final class BusinessProfile implements BaseModel
 {
-    /** @use SdkModel<DataShape> */
+    /** @use SdkModel<BusinessProfileShape> */
     use SdkModel;
 
     #[Required]
@@ -94,11 +94,11 @@ final class Data implements BaseModel
     public string $zip;
 
     /**
-     * `new Data()` is missing required properties by the API.
+     * `new BusinessProfile()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Data::with(
+     * BusinessProfile::with(
      *   id: ...,
      *   address: ...,
      *   category: ...,
@@ -123,7 +123,7 @@ final class Data implements BaseModel
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Data)
+     * (new BusinessProfile)
      *   ->withID(...)
      *   ->withAddress(...)
      *   ->withCategory(...)

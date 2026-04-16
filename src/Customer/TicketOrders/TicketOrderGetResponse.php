@@ -2,39 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses;
+namespace Eat518\Customer\TicketOrders;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-import-type BusinessProfileShape from \Eat518\Customer\Businesses\BusinessProfile
+ * @phpstan-import-type TicketOrderShape from \Eat518\Customer\TicketOrders\TicketOrder
  *
- * @phpstan-type BusinessGetResponseShape = array{
- *   data: BusinessProfile|BusinessProfileShape
+ * @phpstan-type TicketOrderGetResponseShape = array{
+ *   data: TicketOrder|TicketOrderShape
  * }
  */
-final class BusinessGetResponse implements BaseModel
+final class TicketOrderGetResponse implements BaseModel
 {
-    /** @use SdkModel<BusinessGetResponseShape> */
+    /** @use SdkModel<TicketOrderGetResponseShape> */
     use SdkModel;
 
     #[Required]
-    public BusinessProfile $data;
+    public TicketOrder $data;
 
     /**
-     * `new BusinessGetResponse()` is missing required properties by the API.
+     * `new TicketOrderGetResponse()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * BusinessGetResponse::with(data: ...)
+     * TicketOrderGetResponse::with(data: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new BusinessGetResponse)->withData(...)
+     * (new TicketOrderGetResponse)->withData(...)
      * ```
      */
     public function __construct()
@@ -47,9 +47,9 @@ final class BusinessGetResponse implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param BusinessProfile|BusinessProfileShape $data
+     * @param TicketOrder|TicketOrderShape $data
      */
-    public static function with(BusinessProfile|array $data): self
+    public static function with(TicketOrder|array $data): self
     {
         $self = new self;
 
@@ -59,9 +59,9 @@ final class BusinessGetResponse implements BaseModel
     }
 
     /**
-     * @param BusinessProfile|BusinessProfileShape $data
+     * @param TicketOrder|TicketOrderShape $data
      */
-    public function withData(BusinessProfile|array $data): self
+    public function withData(TicketOrder|array $data): self
     {
         $self = clone $this;
         $self['data'] = $data;

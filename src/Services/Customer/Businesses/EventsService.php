@@ -7,6 +7,7 @@ namespace Eat518\Services\Customer\Businesses;
 use Eat518\Client;
 use Eat518\Core\Exceptions\APIException;
 use Eat518\Core\Util;
+use Eat518\Customer\Businesses\Events\EventGetResponse;
 use Eat518\Customer\Businesses\Events\EventListResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\Businesses\EventsContract;
@@ -34,6 +35,29 @@ final class EventsService implements EventsContract
     {
         $this->raw = new EventsRawService($client);
         $this->rsvp = new RsvpService($client);
+    }
+
+    /**
+     * @api
+     *
+     * Retrieve full details for a single upcoming event belonging to the business.
+     *
+     * @param string $handle The business handle
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function retrieve(
+        string $eventID,
+        string $handle,
+        RequestOptions|array|null $requestOptions = null,
+    ): EventGetResponse {
+        $params = Util::removeNulls(['handle' => $handle]);
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->retrieve($eventID, params: $params, requestOptions: $requestOptions);
+
+        return $response->parse();
     }
 
     /**
