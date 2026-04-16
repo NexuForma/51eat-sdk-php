@@ -9,6 +9,7 @@ use Eat518\Customer\CustomerLoginResponse;
 use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchResponse;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -141,5 +142,39 @@ final class CustomerTest extends TestCase
 
         // @phpstan-ignore-next-line method.alreadyNarrowedType
         $this->assertInstanceOf(CustomerGetUserResponse::class, $result);
+    }
+
+    #[Test]
+    public function testSearch(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->customer->search(q: 'q');
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CustomerSearchResponse::class, $result);
+    }
+
+    #[Test]
+    public function testSearchWithOptionalParams(): void
+    {
+        if (UnsupportedMockTests::$skip) {
+            $this->markTestSkipped('Mock server tests are disabled');
+        }
+
+        $result = $this->client->customer->search(
+            q: 'q',
+            category: 'category',
+            city: 'city',
+            lat: (object) [],
+            lng: (object) [],
+            perType: 0,
+            radiusKm: 0,
+        );
+
+        // @phpstan-ignore-next-line method.alreadyNarrowedType
+        $this->assertInstanceOf(CustomerSearchResponse::class, $result);
     }
 }

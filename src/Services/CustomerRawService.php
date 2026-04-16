@@ -7,6 +7,7 @@ namespace Eat518\Services;
 use Eat518\Client;
 use Eat518\Core\Contracts\BaseResponse;
 use Eat518\Core\Exceptions\APIException;
+use Eat518\Core\Util;
 use Eat518\Customer\CustomerGetUserResponse;
 use Eat518\Customer\CustomerLoginParams;
 use Eat518\Customer\CustomerLoginResponse;
@@ -14,6 +15,8 @@ use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterParams;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchParams;
+use Eat518\Customer\CustomerSearchResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\CustomerRawContract;
 
@@ -166,6 +169,49 @@ final class CustomerRawService implements CustomerRawContract
             path: 'customer/user',
             options: $requestOptions,
             convert: CustomerGetUserResponse::class,
+        );
+    }
+
+    /**
+     * @api
+     *
+     * Returns grouped results for each type. Use per_type to control how many results
+     * appear per section. Optionally filter by category, city, or geo radius.
+     *
+     * @param array{
+     *   q: string,
+     *   category?: string,
+     *   city?: string,
+     *   lat?: mixed,
+     *   lng?: mixed,
+     *   perType?: int,
+     *   radiusKm?: int,
+     * }|CustomerSearchParams $params
+     * @param RequestOpts|null $requestOptions
+     *
+     * @return BaseResponse<CustomerSearchResponse>
+     *
+     * @throws APIException
+     */
+    public function search(
+        array|CustomerSearchParams $params,
+        RequestOptions|array|null $requestOptions = null,
+    ): BaseResponse {
+        [$parsed, $options] = CustomerSearchParams::parseRequest(
+            $params,
+            $requestOptions,
+        );
+
+        // @phpstan-ignore-next-line return.type
+        return $this->client->request(
+            method: 'get',
+            path: 'customer/search',
+            query: Util::array_transform_keys(
+                $parsed,
+                ['perType' => 'per_type', 'radiusKm' => 'radius_km']
+            ),
+            options: $options,
+            convert: CustomerSearchResponse::class,
         );
     }
 }
