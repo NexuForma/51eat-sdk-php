@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Businesses\Photos\PhotoListResponse\Data;
+namespace Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;

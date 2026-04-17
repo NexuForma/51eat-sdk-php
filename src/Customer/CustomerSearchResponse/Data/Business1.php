@@ -11,15 +11,15 @@ use Eat518\Core\Contracts\BaseModel;
 /**
  * @phpstan-type Business1Shape = array{
  *   id: string,
- *   category: string,
- *   city: string,
- *   coverPhoto: string,
- *   favoritesCount: string,
+ *   category: string|null,
+ *   city: string|null,
+ *   coverPhoto: string|null,
+ *   favoritesCount: int,
  *   handle: string,
- *   isFavorited: string,
- *   logo: string,
+ *   isFavorited: bool,
+ *   logo: string|null,
  *   name: string,
- *   state: string,
+ *   state: string|null,
  * }
  */
 final class Business1 implements BaseModel
@@ -31,31 +31,31 @@ final class Business1 implements BaseModel
     public string $id;
 
     #[Required]
-    public string $category;
+    public ?string $category;
 
     #[Required]
-    public string $city;
+    public ?string $city;
 
     #[Required('cover_photo')]
-    public string $coverPhoto;
+    public ?string $coverPhoto;
 
     #[Required('favorites_count')]
-    public string $favoritesCount;
+    public int $favoritesCount;
 
     #[Required]
     public string $handle;
 
     #[Required('is_favorited')]
-    public string $isFavorited;
+    public bool $isFavorited;
 
     #[Required]
-    public string $logo;
+    public ?string $logo;
 
     #[Required]
     public string $name;
 
     #[Required]
-    public string $state;
+    public ?string $state;
 
     /**
      * `new Business1()` is missing required properties by the API.
@@ -104,15 +104,15 @@ final class Business1 implements BaseModel
      */
     public static function with(
         string $id,
-        string $category,
-        string $city,
-        string $coverPhoto,
-        string $favoritesCount,
+        ?string $category,
+        ?string $city,
+        ?string $coverPhoto,
+        int $favoritesCount,
         string $handle,
-        string $isFavorited,
-        string $logo,
+        bool $isFavorited,
+        ?string $logo,
         string $name,
-        string $state,
+        ?string $state,
     ): self {
         $self = new self;
 
@@ -138,7 +138,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withCategory(string $category): self
+    public function withCategory(?string $category): self
     {
         $self = clone $this;
         $self['category'] = $category;
@@ -146,7 +146,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withCity(string $city): self
+    public function withCity(?string $city): self
     {
         $self = clone $this;
         $self['city'] = $city;
@@ -154,7 +154,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withCoverPhoto(string $coverPhoto): self
+    public function withCoverPhoto(?string $coverPhoto): self
     {
         $self = clone $this;
         $self['coverPhoto'] = $coverPhoto;
@@ -162,7 +162,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withFavoritesCount(string $favoritesCount): self
+    public function withFavoritesCount(int $favoritesCount): self
     {
         $self = clone $this;
         $self['favoritesCount'] = $favoritesCount;
@@ -178,7 +178,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withIsFavorited(string $isFavorited): self
+    public function withIsFavorited(bool $isFavorited): self
     {
         $self = clone $this;
         $self['isFavorited'] = $isFavorited;
@@ -186,7 +186,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withLogo(string $logo): self
+    public function withLogo(?string $logo): self
     {
         $self = clone $this;
         $self['logo'] = $logo;
@@ -202,7 +202,7 @@ final class Business1 implements BaseModel
         return $self;
     }
 
-    public function withState(string $state): self
+    public function withState(?string $state): self
     {
         $self = clone $this;
         $self['state'] = $state;

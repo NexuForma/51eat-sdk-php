@@ -10,7 +10,7 @@ use Eat518\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type BusinessShape = array{
- *   id: string, handle: string, logoURL: string, name: string
+ *   id: string, handle: string, logoURL: string|null, name: string
  * }
  */
 final class Business implements BaseModel
@@ -25,7 +25,7 @@ final class Business implements BaseModel
     public string $handle;
 
     #[Required('logo_url')]
-    public string $logoURL;
+    public ?string $logoURL;
 
     #[Required]
     public string $name;
@@ -57,7 +57,7 @@ final class Business implements BaseModel
     public static function with(
         string $id,
         string $handle,
-        string $logoURL,
+        ?string $logoURL,
         string $name
     ): self {
         $self = new self;
@@ -86,7 +86,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withLogoURL(string $logoURL): self
+    public function withLogoURL(?string $logoURL): self
     {
         $self = clone $this;
         $self['logoURL'] = $logoURL;

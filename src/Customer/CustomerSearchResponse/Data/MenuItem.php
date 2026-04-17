@@ -15,10 +15,10 @@ use Eat518\Customer\CustomerSearchResponse\Data\MenuItem\Business;
  * @phpstan-type MenuItemShape = array{
  *   id: string,
  *   business: Business|BusinessShape,
- *   description: string,
- *   image: string,
+ *   description: string|null,
+ *   image: string|null,
  *   name: string,
- *   price: string,
+ *   price: float|null,
  * }
  */
 final class MenuItem implements BaseModel
@@ -33,16 +33,16 @@ final class MenuItem implements BaseModel
     public Business $business;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required]
-    public string $image;
+    public ?string $image;
 
     #[Required]
     public string $name;
 
     #[Required]
-    public string $price;
+    public ?float $price;
 
     /**
      * `new MenuItem()` is missing required properties by the API.
@@ -81,10 +81,10 @@ final class MenuItem implements BaseModel
     public static function with(
         string $id,
         Business|array $business,
-        string $description,
-        string $image,
+        ?string $description,
+        ?string $image,
         string $name,
-        string $price,
+        ?float $price,
     ): self {
         $self = new self;
 
@@ -117,7 +117,7 @@ final class MenuItem implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;
@@ -125,7 +125,7 @@ final class MenuItem implements BaseModel
         return $self;
     }
 
-    public function withImage(string $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
@@ -141,7 +141,7 @@ final class MenuItem implements BaseModel
         return $self;
     }
 
-    public function withPrice(string $price): self
+    public function withPrice(?float $price): self
     {
         $self = clone $this;
         $self['price'] = $price;

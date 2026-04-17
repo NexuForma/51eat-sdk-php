@@ -16,7 +16,7 @@ use Eat518\Customer\Rsvps\RsvpListResponse\Data\Rsvp\Event;
  * @phpstan-type RsvpShape = array{
  *   id: string,
  *   createdAt: string,
- *   notes: string,
+ *   notes: string|null,
  *   status: string,
  *   updatedAt: string,
  *   event?: null|Event|EventShape,
@@ -34,7 +34,7 @@ final class Rsvp implements BaseModel
     public string $createdAt;
 
     #[Required]
-    public string $notes;
+    public ?string $notes;
 
     #[Required]
     public string $status;
@@ -79,7 +79,7 @@ final class Rsvp implements BaseModel
     public static function with(
         string $id,
         string $createdAt,
-        string $notes,
+        ?string $notes,
         string $status,
         string $updatedAt,
         Event|array|null $event = null,
@@ -113,7 +113,7 @@ final class Rsvp implements BaseModel
         return $self;
     }
 
-    public function withNotes(string $notes): self
+    public function withNotes(?string $notes): self
     {
         $self = clone $this;
         $self['notes'] = $notes;

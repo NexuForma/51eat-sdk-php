@@ -10,7 +10,7 @@ use Eat518\Core\Contracts\BaseModel;
 
 /**
  * @phpstan-type LatestBulletinShape = array{
- *   content: string, publishedAt: string, title: string
+ *   content: string|null, publishedAt: mixed, title: string|null
  * }
  */
 final class LatestBulletin implements BaseModel
@@ -19,13 +19,13 @@ final class LatestBulletin implements BaseModel
     use SdkModel;
 
     #[Required]
-    public string $content;
+    public ?string $content;
 
     #[Required('published_at')]
-    public string $publishedAt;
+    public mixed $publishedAt;
 
     #[Required]
-    public string $title;
+    public ?string $title;
 
     /**
      * `new LatestBulletin()` is missing required properties by the API.
@@ -52,9 +52,9 @@ final class LatestBulletin implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $content,
-        string $publishedAt,
-        string $title
+        ?string $content,
+        mixed $publishedAt,
+        ?string $title
     ): self {
         $self = new self;
 
@@ -65,7 +65,7 @@ final class LatestBulletin implements BaseModel
         return $self;
     }
 
-    public function withContent(string $content): self
+    public function withContent(?string $content): self
     {
         $self = clone $this;
         $self['content'] = $content;
@@ -73,7 +73,7 @@ final class LatestBulletin implements BaseModel
         return $self;
     }
 
-    public function withPublishedAt(string $publishedAt): self
+    public function withPublishedAt(mixed $publishedAt): self
     {
         $self = clone $this;
         $self['publishedAt'] = $publishedAt;
@@ -81,7 +81,7 @@ final class LatestBulletin implements BaseModel
         return $self;
     }
 
-    public function withTitle(string $title): self
+    public function withTitle(?string $title): self
     {
         $self = clone $this;
         $self['title'] = $title;

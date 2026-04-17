@@ -15,11 +15,11 @@ use Eat518\Customer\Businesses\BusinessProfile;
  *
  * @phpstan-type EventShape = array{
  *   id: string,
- *   description: string,
+ *   description: string|null,
  *   endsAt: string,
- *   image: string,
- *   isAllDay: string,
- *   location: string,
+ *   image: string|null,
+ *   isAllDay: bool,
+ *   location: string|null,
  *   startsAt: string,
  *   title: string,
  *   business?: null|BusinessProfile|BusinessProfileShape,
@@ -34,19 +34,19 @@ final class Event implements BaseModel
     public string $id;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required('ends_at')]
     public string $endsAt;
 
     #[Required]
-    public string $image;
+    public ?string $image;
 
     #[Required('is_all_day')]
-    public string $isAllDay;
+    public bool $isAllDay;
 
     #[Required]
-    public string $location;
+    public ?string $location;
 
     #[Required('starts_at')]
     public string $startsAt;
@@ -102,11 +102,11 @@ final class Event implements BaseModel
      */
     public static function with(
         string $id,
-        string $description,
+        ?string $description,
         string $endsAt,
-        string $image,
-        string $isAllDay,
-        string $location,
+        ?string $image,
+        bool $isAllDay,
+        ?string $location,
         string $startsAt,
         string $title,
         BusinessProfile|array|null $business = null,
@@ -135,7 +135,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;
@@ -151,7 +151,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withImage(string $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
@@ -159,7 +159,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withIsAllDay(string $isAllDay): self
+    public function withIsAllDay(bool $isAllDay): self
     {
         $self = clone $this;
         $self['isAllDay'] = $isAllDay;
@@ -167,7 +167,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withLocation(string $location): self
+    public function withLocation(?string $location): self
     {
         $self = clone $this;
         $self['location'] = $location;
