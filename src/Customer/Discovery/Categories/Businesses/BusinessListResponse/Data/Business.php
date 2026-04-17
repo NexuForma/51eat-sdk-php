@@ -10,26 +10,28 @@ use Eat518\Core\Contracts\BaseModel;
 use Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Badges;
 use Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\LatestBulletin;
 use Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Location;
+use Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Photo;
 
 /**
  * @phpstan-import-type BadgesShape from \Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Badges
  * @phpstan-import-type LatestBulletinShape from \Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\LatestBulletin
  * @phpstan-import-type LocationShape from \Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Location
+ * @phpstan-import-type PhotoShape from \Eat518\Customer\Discovery\Categories\Businesses\BusinessListResponse\Data\Business\Photo
  *
  * @phpstan-type BusinessShape = array{
  *   id: string,
  *   badges: Badges|BadgesShape,
- *   bio: string,
- *   category: string,
+ *   bio: string|null,
+ *   category: string|null,
  *   createdAt: string,
- *   description: string,
+ *   description: string|null,
  *   handle: string,
  *   hasBulletins: bool,
  *   latestBulletin: null|LatestBulletin|LatestBulletinShape,
  *   location: Location|LocationShape,
- *   logo: string,
+ *   logo: string|null,
  *   name: string,
- *   photos: string,
+ *   photos: list<Photo|PhotoShape>,
  * }
  */
 final class Business implements BaseModel
@@ -44,16 +46,16 @@ final class Business implements BaseModel
     public Badges $badges;
 
     #[Required]
-    public string $bio;
+    public ?string $bio;
 
     #[Required]
-    public string $category;
+    public ?string $category;
 
     #[Required('created_at')]
     public string $createdAt;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required]
     public string $handle;
@@ -68,13 +70,14 @@ final class Business implements BaseModel
     public Location $location;
 
     #[Required]
-    public string $logo;
+    public ?string $logo;
 
     #[Required]
     public string $name;
 
-    #[Required]
-    public string $photos;
+    /** @var list<Photo> $photos */
+    #[Required(list: Photo::class)]
+    public array $photos;
 
     /**
      * `new Business()` is missing required properties by the API.
@@ -130,21 +133,22 @@ final class Business implements BaseModel
      * @param Badges|BadgesShape $badges
      * @param LatestBulletin|LatestBulletinShape|null $latestBulletin
      * @param Location|LocationShape $location
+     * @param list<Photo|PhotoShape> $photos
      */
     public static function with(
         string $id,
         Badges|array $badges,
-        string $bio,
-        string $category,
+        ?string $bio,
+        ?string $category,
         string $createdAt,
-        string $description,
+        ?string $description,
         string $handle,
         bool $hasBulletins,
         LatestBulletin|array|null $latestBulletin,
         Location|array $location,
-        string $logo,
+        ?string $logo,
         string $name,
-        string $photos,
+        array $photos,
     ): self {
         $self = new self;
 
@@ -184,7 +188,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withBio(string $bio): self
+    public function withBio(?string $bio): self
     {
         $self = clone $this;
         $self['bio'] = $bio;
@@ -192,7 +196,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withCategory(string $category): self
+    public function withCategory(?string $category): self
     {
         $self = clone $this;
         $self['category'] = $category;
@@ -208,7 +212,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;
@@ -255,7 +259,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withLogo(string $logo): self
+    public function withLogo(?string $logo): self
     {
         $self = clone $this;
         $self['logo'] = $logo;
@@ -271,7 +275,10 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withPhotos(string $photos): self
+    /**
+     * @param list<Photo|PhotoShape> $photos
+     */
+    public function withPhotos(array $photos): self
     {
         $self = clone $this;
         $self['photos'] = $photos;

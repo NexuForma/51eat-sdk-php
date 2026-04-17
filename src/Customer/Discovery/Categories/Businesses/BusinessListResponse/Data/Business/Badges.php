@@ -9,7 +9,7 @@ use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BadgesShape = array{foundingPartner: string, staffPick: string}
+ * @phpstan-type BadgesShape = array{foundingPartner: bool, staffPick: bool}
  */
 final class Badges implements BaseModel
 {
@@ -17,10 +17,10 @@ final class Badges implements BaseModel
     use SdkModel;
 
     #[Required('founding_partner')]
-    public string $foundingPartner;
+    public bool $foundingPartner;
 
     #[Required('staff_pick')]
-    public string $staffPick;
+    public bool $staffPick;
 
     /**
      * `new Badges()` is missing required properties by the API.
@@ -46,10 +46,8 @@ final class Badges implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      */
-    public static function with(
-        string $foundingPartner,
-        string $staffPick
-    ): self {
+    public static function with(bool $foundingPartner, bool $staffPick): self
+    {
         $self = new self;
 
         $self['foundingPartner'] = $foundingPartner;
@@ -58,7 +56,7 @@ final class Badges implements BaseModel
         return $self;
     }
 
-    public function withFoundingPartner(string $foundingPartner): self
+    public function withFoundingPartner(bool $foundingPartner): self
     {
         $self = clone $this;
         $self['foundingPartner'] = $foundingPartner;
@@ -66,7 +64,7 @@ final class Badges implements BaseModel
         return $self;
     }
 
-    public function withStaffPick(string $staffPick): self
+    public function withStaffPick(bool $staffPick): self
     {
         $self = clone $this;
         $self['staffPick'] = $staffPick;

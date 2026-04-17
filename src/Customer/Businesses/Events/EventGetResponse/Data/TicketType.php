@@ -15,7 +15,7 @@ use Eat518\Core\Contracts\BaseModel;
  *   isAvailableForSale: bool,
  *   name: string,
  *   price: string,
- *   remainingQuantity: string,
+ *   remainingQuantity: int|null,
  *   salesEndAt: \DateTimeInterface|null,
  *   salesStartAt: \DateTimeInterface|null,
  * }
@@ -41,7 +41,7 @@ final class TicketType implements BaseModel
     public string $price;
 
     #[Required('remaining_quantity')]
-    public string $remainingQuantity;
+    public ?int $remainingQuantity;
 
     #[Required('sales_end_at')]
     public ?\DateTimeInterface $salesEndAt;
@@ -96,7 +96,7 @@ final class TicketType implements BaseModel
         bool $isAvailableForSale,
         string $name,
         string $price,
-        string $remainingQuantity,
+        ?int $remainingQuantity,
         ?\DateTimeInterface $salesEndAt,
         ?\DateTimeInterface $salesStartAt,
     ): self {
@@ -154,7 +154,7 @@ final class TicketType implements BaseModel
         return $self;
     }
 
-    public function withRemainingQuantity(string $remainingQuantity): self
+    public function withRemainingQuantity(?int $remainingQuantity): self
     {
         $self = clone $this;
         $self['remainingQuantity'] = $remainingQuantity;

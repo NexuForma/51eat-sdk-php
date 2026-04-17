@@ -16,14 +16,14 @@ use Eat518\Customer\Events\EventFeedItem\Business;
  * @phpstan-type EventFeedItemShape = array{
  *   id: string,
  *   business: Business|BusinessShape,
- *   description: string,
+ *   description: string|null,
  *   endsAt: string,
- *   image: string,
- *   isFeatured: string,
- *   location: string,
- *   rsvpCount: string,
+ *   image: string|null,
+ *   isFeatured: bool,
+ *   location: string|null,
+ *   rsvpCount: int,
  *   startsAt: string,
- *   ticketSalesEnabled: string,
+ *   ticketSalesEnabled: bool,
  *   title: string,
  *   ticketPriceFrom?: string|null,
  *   userHasTickets?: bool|null,
@@ -42,28 +42,28 @@ final class EventFeedItem implements BaseModel
     public Business $business;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required('ends_at')]
     public string $endsAt;
 
     #[Required]
-    public string $image;
+    public ?string $image;
 
     #[Required('is_featured')]
-    public string $isFeatured;
+    public bool $isFeatured;
 
     #[Required]
-    public string $location;
+    public ?string $location;
 
     #[Required('rsvp_count')]
-    public string $rsvpCount;
+    public int $rsvpCount;
 
     #[Required('starts_at')]
     public string $startsAt;
 
     #[Required('ticket_sales_enabled')]
-    public string $ticketSalesEnabled;
+    public bool $ticketSalesEnabled;
 
     #[Required]
     public string $title;
@@ -129,14 +129,14 @@ final class EventFeedItem implements BaseModel
     public static function with(
         string $id,
         Business|array $business,
-        string $description,
+        ?string $description,
         string $endsAt,
-        string $image,
-        string $isFeatured,
-        string $location,
-        string $rsvpCount,
+        ?string $image,
+        bool $isFeatured,
+        ?string $location,
+        int $rsvpCount,
         string $startsAt,
-        string $ticketSalesEnabled,
+        bool $ticketSalesEnabled,
         string $title,
         ?string $ticketPriceFrom = null,
         ?bool $userHasTickets = null,
@@ -182,7 +182,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;
@@ -198,7 +198,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withImage(string $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
@@ -206,7 +206,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withIsFeatured(string $isFeatured): self
+    public function withIsFeatured(bool $isFeatured): self
     {
         $self = clone $this;
         $self['isFeatured'] = $isFeatured;
@@ -214,7 +214,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withLocation(string $location): self
+    public function withLocation(?string $location): self
     {
         $self = clone $this;
         $self['location'] = $location;
@@ -222,7 +222,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withRsvpCount(string $rsvpCount): self
+    public function withRsvpCount(int $rsvpCount): self
     {
         $self = clone $this;
         $self['rsvpCount'] = $rsvpCount;
@@ -238,7 +238,7 @@ final class EventFeedItem implements BaseModel
         return $self;
     }
 
-    public function withTicketSalesEnabled(string $ticketSalesEnabled): self
+    public function withTicketSalesEnabled(bool $ticketSalesEnabled): self
     {
         $self = clone $this;
         $self['ticketSalesEnabled'] = $ticketSalesEnabled;

@@ -15,7 +15,7 @@ use Eat518\Customer\Tickets\Ticket\TicketType;
  *
  * @phpstan-type TicketShape = array{
  *   id: string,
- *   qrCode: string,
+ *   qrCode: string|null,
  *   status: string,
  *   ticketNumber: string,
  *   usedAt: string,
@@ -31,7 +31,7 @@ final class Ticket implements BaseModel
     public string $id;
 
     #[Required('qr_code')]
-    public string $qrCode;
+    public ?string $qrCode;
 
     #[Required]
     public string $status;
@@ -78,7 +78,7 @@ final class Ticket implements BaseModel
      */
     public static function with(
         string $id,
-        string $qrCode,
+        ?string $qrCode,
         string $status,
         string $ticketNumber,
         string $usedAt,
@@ -105,7 +105,7 @@ final class Ticket implements BaseModel
         return $self;
     }
 
-    public function withQrCode(string $qrCode): self
+    public function withQrCode(?string $qrCode): self
     {
         $self = clone $this;
         $self['qrCode'] = $qrCode;

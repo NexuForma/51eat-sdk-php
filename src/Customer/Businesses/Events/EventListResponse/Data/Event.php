@@ -14,10 +14,10 @@ use Eat518\Core\Contracts\BaseModel;
  *   id: string,
  *   description: string|null,
  *   endsAt: \DateTimeInterface,
- *   image: string,
+ *   image: string|null,
  *   isFeatured: bool,
  *   location: string|null,
- *   rsvpCount: string,
+ *   rsvpCount: int,
  *   startsAt: \DateTimeInterface,
  *   ticketSalesEnabled: bool,
  *   title: string,
@@ -41,7 +41,7 @@ final class Event implements BaseModel
     public \DateTimeInterface $endsAt;
 
     #[Required]
-    public string $image;
+    public ?string $image;
 
     #[Required('is_featured')]
     public bool $isFeatured;
@@ -50,7 +50,7 @@ final class Event implements BaseModel
     public ?string $location;
 
     #[Required('rsvp_count')]
-    public string $rsvpCount;
+    public int $rsvpCount;
 
     #[Required('starts_at')]
     public \DateTimeInterface $startsAt;
@@ -119,10 +119,10 @@ final class Event implements BaseModel
         string $id,
         ?string $description,
         \DateTimeInterface $endsAt,
-        string $image,
+        ?string $image,
         bool $isFeatured,
         ?string $location,
-        string $rsvpCount,
+        int $rsvpCount,
         \DateTimeInterface $startsAt,
         bool $ticketSalesEnabled,
         string $title,
@@ -174,7 +174,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withImage(string $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
@@ -198,7 +198,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withRsvpCount(string $rsvpCount): self
+    public function withRsvpCount(int $rsvpCount): self
     {
         $self = clone $this;
         $self['rsvpCount'] = $rsvpCount;

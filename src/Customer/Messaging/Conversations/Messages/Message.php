@@ -18,10 +18,10 @@ use Eat518\Customer\Messaging\Conversations\Messages\Message\Sender;
  *   content: string,
  *   conversationID: string,
  *   createdAt: string,
- *   editedAt: string,
+ *   editedAt: string|null,
  *   isEdited: bool,
  *   messageType: string,
- *   metadata: list<mixed>|null,
+ *   metadata: array<string,mixed>|null,
  *   senderID: string,
  *   updatedAt: string,
  *   sender?: null|Sender|SenderShape,
@@ -45,7 +45,7 @@ final class Message implements BaseModel
     public string $createdAt;
 
     #[Required('edited_at')]
-    public string $editedAt;
+    public ?string $editedAt;
 
     #[Required('is_edited')]
     public bool $isEdited;
@@ -53,8 +53,8 @@ final class Message implements BaseModel
     #[Required('message_type')]
     public string $messageType;
 
-    /** @var list<mixed>|null $metadata */
-    #[Required(list: 'mixed')]
+    /** @var array<string,mixed>|null $metadata */
+    #[Required(map: 'mixed')]
     public ?array $metadata;
 
     #[Required('sender_id')]
@@ -111,7 +111,7 @@ final class Message implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<mixed>|null $metadata
+     * @param array<string,mixed>|null $metadata
      * @param Sender|SenderShape|null $sender
      */
     public static function with(
@@ -119,7 +119,7 @@ final class Message implements BaseModel
         string $content,
         string $conversationID,
         string $createdAt,
-        string $editedAt,
+        ?string $editedAt,
         bool $isEdited,
         string $messageType,
         ?array $metadata,
@@ -177,7 +177,7 @@ final class Message implements BaseModel
         return $self;
     }
 
-    public function withEditedAt(string $editedAt): self
+    public function withEditedAt(?string $editedAt): self
     {
         $self = clone $this;
         $self['editedAt'] = $editedAt;
@@ -202,7 +202,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param list<mixed>|null $metadata
+     * @param array<string,mixed>|null $metadata
      */
     public function withMetadata(?array $metadata): self
     {

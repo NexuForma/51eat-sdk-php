@@ -7,18 +7,13 @@ namespace Eat518\Customer\Businesses\Menus\MenuGetResponse\Data\Menu\Group;
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
-use Eat518\Customer\Businesses\Menus\MenuGetResponse\Data\Menu\Group\Item\Allergen;
-use Eat518\Customer\Businesses\Menus\MenuGetResponse\Data\Menu\Group\Item\Image;
 
 /**
- * @phpstan-import-type AllergenShape from \Eat518\Customer\Businesses\Menus\MenuGetResponse\Data\Menu\Group\Item\Allergen
- * @phpstan-import-type ImageShape from \Eat518\Customer\Businesses\Menus\MenuGetResponse\Data\Menu\Group\Item\Image
- *
  * @phpstan-type ItemShape = array{
  *   id: string,
- *   allergens: list<Allergen|AllergenShape>,
+ *   allergens: list<string>|null,
  *   description: string|null,
- *   image: Image|ImageShape,
+ *   image: string|null,
  *   name: string,
  *   price: float|null,
  * }
@@ -31,15 +26,15 @@ final class Item implements BaseModel
     #[Required]
     public string $id;
 
-    /** @var list<Allergen> $allergens */
-    #[Required(list: Allergen::class)]
-    public array $allergens;
+    /** @var list<string>|null $allergens */
+    #[Required(list: 'string')]
+    public ?array $allergens;
 
     #[Required]
     public ?string $description;
 
     #[Required]
-    public Image $image;
+    public ?string $image;
 
     #[Required]
     public string $name;
@@ -79,14 +74,13 @@ final class Item implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<Allergen|AllergenShape> $allergens
-     * @param Image|ImageShape $image
+     * @param list<string>|null $allergens
      */
     public static function with(
         string $id,
-        array $allergens,
+        ?array $allergens,
         ?string $description,
-        Image|array $image,
+        ?string $image,
         string $name,
         ?float $price,
     ): self {
@@ -111,9 +105,9 @@ final class Item implements BaseModel
     }
 
     /**
-     * @param list<Allergen|AllergenShape> $allergens
+     * @param list<string>|null $allergens
      */
-    public function withAllergens(array $allergens): self
+    public function withAllergens(?array $allergens): self
     {
         $self = clone $this;
         $self['allergens'] = $allergens;
@@ -129,10 +123,7 @@ final class Item implements BaseModel
         return $self;
     }
 
-    /**
-     * @param Image|ImageShape $image
-     */
-    public function withImage(Image|array $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;

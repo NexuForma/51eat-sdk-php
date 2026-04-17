@@ -14,9 +14,9 @@ use Eat518\Customer\CustomerSearchResponse\Data\Product\Business;
  *
  * @phpstan-type ProductShape = array{
  *   id: string,
- *   basePrice: string,
+ *   basePrice: float|null,
  *   business: Business|BusinessShape,
- *   description: string,
+ *   description: string|null,
  *   name: string,
  * }
  */
@@ -29,13 +29,13 @@ final class Product implements BaseModel
     public string $id;
 
     #[Required('base_price')]
-    public string $basePrice;
+    public ?float $basePrice;
 
     #[Required]
     public Business $business;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required]
     public string $name;
@@ -75,9 +75,9 @@ final class Product implements BaseModel
      */
     public static function with(
         string $id,
-        string $basePrice,
+        ?float $basePrice,
         Business|array $business,
-        string $description,
+        ?string $description,
         string $name,
     ): self {
         $self = new self;
@@ -99,7 +99,7 @@ final class Product implements BaseModel
         return $self;
     }
 
-    public function withBasePrice(string $basePrice): self
+    public function withBasePrice(?float $basePrice): self
     {
         $self = clone $this;
         $self['basePrice'] = $basePrice;
@@ -118,7 +118,7 @@ final class Product implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;

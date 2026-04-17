@@ -11,9 +11,9 @@ use Eat518\Core\Contracts\BaseModel;
 /**
  * @phpstan-type BulletinShape = array{
  *   id: string,
- *   content: string,
+ *   content: string|null,
  *   publishedAt: \DateTimeInterface|null,
- *   title: string,
+ *   title: string|null,
  * }
  */
 final class Bulletin implements BaseModel
@@ -25,13 +25,13 @@ final class Bulletin implements BaseModel
     public string $id;
 
     #[Required]
-    public string $content;
+    public ?string $content;
 
     #[Required('published_at')]
     public ?\DateTimeInterface $publishedAt;
 
     #[Required]
-    public string $title;
+    public ?string $title;
 
     /**
      * `new Bulletin()` is missing required properties by the API.
@@ -63,9 +63,9 @@ final class Bulletin implements BaseModel
      */
     public static function with(
         string $id,
-        string $content,
+        ?string $content,
         ?\DateTimeInterface $publishedAt,
-        string $title
+        ?string $title,
     ): self {
         $self = new self;
 
@@ -85,7 +85,7 @@ final class Bulletin implements BaseModel
         return $self;
     }
 
-    public function withContent(string $content): self
+    public function withContent(?string $content): self
     {
         $self = clone $this;
         $self['content'] = $content;
@@ -101,7 +101,7 @@ final class Bulletin implements BaseModel
         return $self;
     }
 
-    public function withTitle(string $title): self
+    public function withTitle(?string $title): self
     {
         $self = clone $this;
         $self['title'] = $title;

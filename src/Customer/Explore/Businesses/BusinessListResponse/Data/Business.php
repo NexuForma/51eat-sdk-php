@@ -11,11 +11,11 @@ use Eat518\Core\Contracts\BaseModel;
 /**
  * @phpstan-type BusinessShape = array{
  *   id: string,
- *   category: string,
+ *   category: string|null,
  *   handle: string,
- *   hasBulletins: string,
+ *   hasBulletins: bool,
  *   latitude: float|null,
- *   logo: string,
+ *   logo: string|null,
  *   longitude: float|null,
  *   name: string,
  * }
@@ -29,19 +29,19 @@ final class Business implements BaseModel
     public string $id;
 
     #[Required]
-    public string $category;
+    public ?string $category;
 
     #[Required]
     public string $handle;
 
     #[Required('has_bulletins')]
-    public string $hasBulletins;
+    public bool $hasBulletins;
 
     #[Required]
     public ?float $latitude;
 
     #[Required]
-    public string $logo;
+    public ?string $logo;
 
     #[Required]
     public ?float $longitude;
@@ -92,11 +92,11 @@ final class Business implements BaseModel
      */
     public static function with(
         string $id,
-        string $category,
+        ?string $category,
         string $handle,
-        string $hasBulletins,
+        bool $hasBulletins,
         ?float $latitude,
-        string $logo,
+        ?string $logo,
         ?float $longitude,
         string $name,
     ): self {
@@ -122,7 +122,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withCategory(string $category): self
+    public function withCategory(?string $category): self
     {
         $self = clone $this;
         $self['category'] = $category;
@@ -138,7 +138,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withHasBulletins(string $hasBulletins): self
+    public function withHasBulletins(bool $hasBulletins): self
     {
         $self = clone $this;
         $self['hasBulletins'] = $hasBulletins;
@@ -154,7 +154,7 @@ final class Business implements BaseModel
         return $self;
     }
 
-    public function withLogo(string $logo): self
+    public function withLogo(?string $logo): self
     {
         $self = clone $this;
         $self['logo'] = $logo;

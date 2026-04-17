@@ -15,10 +15,10 @@ use Eat518\Customer\CustomerSearchResponse\Data\Event\Business;
  * @phpstan-type EventShape = array{
  *   id: string,
  *   business: Business|BusinessShape,
- *   description: string,
+ *   description: string|null,
  *   endsAt: string,
- *   image: string,
- *   location: string,
+ *   image: string|null,
+ *   location: string|null,
  *   startsAt: string,
  *   title: string,
  * }
@@ -35,16 +35,16 @@ final class Event implements BaseModel
     public Business $business;
 
     #[Required]
-    public string $description;
+    public ?string $description;
 
     #[Required('ends_at')]
     public string $endsAt;
 
     #[Required]
-    public string $image;
+    public ?string $image;
 
     #[Required]
-    public string $location;
+    public ?string $location;
 
     #[Required('starts_at')]
     public string $startsAt;
@@ -98,10 +98,10 @@ final class Event implements BaseModel
     public static function with(
         string $id,
         Business|array $business,
-        string $description,
+        ?string $description,
         string $endsAt,
-        string $image,
-        string $location,
+        ?string $image,
+        ?string $location,
         string $startsAt,
         string $title,
     ): self {
@@ -138,7 +138,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withDescription(string $description): self
+    public function withDescription(?string $description): self
     {
         $self = clone $this;
         $self['description'] = $description;
@@ -154,7 +154,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withImage(string $image): self
+    public function withImage(?string $image): self
     {
         $self = clone $this;
         $self['image'] = $image;
@@ -162,7 +162,7 @@ final class Event implements BaseModel
         return $self;
     }
 
-    public function withLocation(string $location): self
+    public function withLocation(?string $location): self
     {
         $self = clone $this;
         $self['location'] = $location;

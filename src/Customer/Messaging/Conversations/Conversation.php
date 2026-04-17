@@ -19,7 +19,7 @@ use Eat518\Customer\Messaging\Conversations\Conversation\LastMessage;
  *   id: string,
  *   business: Business|BusinessShape,
  *   createdAt: string,
- *   lastMessageAt: string,
+ *   lastMessageAt: string|null,
  *   updatedAt: string,
  *   lastMessage?: null|LastMessage|LastMessageShape,
  * }
@@ -39,7 +39,7 @@ final class Conversation implements BaseModel
     public string $createdAt;
 
     #[Required('last_message_at')]
-    public string $lastMessageAt;
+    public ?string $lastMessageAt;
 
     #[Required('updated_at')]
     public string $updatedAt;
@@ -85,7 +85,7 @@ final class Conversation implements BaseModel
         string $id,
         Business|array $business,
         string $createdAt,
-        string $lastMessageAt,
+        ?string $lastMessageAt,
         string $updatedAt,
         LastMessage|array|null $lastMessage = null,
     ): self {
@@ -129,7 +129,7 @@ final class Conversation implements BaseModel
         return $self;
     }
 
-    public function withLastMessageAt(string $lastMessageAt): self
+    public function withLastMessageAt(?string $lastMessageAt): self
     {
         $self = clone $this;
         $self['lastMessageAt'] = $lastMessageAt;

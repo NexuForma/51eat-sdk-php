@@ -2,43 +2,46 @@
 
 declare(strict_types=1);
 
-namespace Eat518\Customer\Events\EventFeedItem;
+namespace Eat518\Customer\Businesses\BusinessProfile;
 
 use Eat518\Core\Attributes\Required;
 use Eat518\Core\Concerns\SdkModel;
 use Eat518\Core\Contracts\BaseModel;
 
 /**
- * @phpstan-type BusinessShape = array{
- *   handle: string, logo: string|null, name: string
+ * @phpstan-type CertificationShape = array{
+ *   id: int, icon: string|null, name: string, slug: string
  * }
  */
-final class Business implements BaseModel
+final class Certification implements BaseModel
 {
-    /** @use SdkModel<BusinessShape> */
+    /** @use SdkModel<CertificationShape> */
     use SdkModel;
 
     #[Required]
-    public string $handle;
+    public int $id;
 
     #[Required]
-    public ?string $logo;
+    public ?string $icon;
 
     #[Required]
     public string $name;
 
+    #[Required]
+    public string $slug;
+
     /**
-     * `new Business()` is missing required properties by the API.
+     * `new Certification()` is missing required properties by the API.
      *
      * To enforce required parameters use
      * ```
-     * Business::with(handle: ..., logo: ..., name: ...)
+     * Certification::with(id: ..., icon: ..., name: ..., slug: ...)
      * ```
      *
      * Otherwise ensure the following setters are called
      *
      * ```
-     * (new Business)->withHandle(...)->withLogo(...)->withName(...)
+     * (new Certification)->withID(...)->withIcon(...)->withName(...)->withSlug(...)
      * ```
      */
     public function __construct()
@@ -52,31 +55,33 @@ final class Business implements BaseModel
      * You must use named parameters to construct any parameters with a default value.
      */
     public static function with(
-        string $handle,
-        ?string $logo,
-        string $name
+        int $id,
+        ?string $icon,
+        string $name,
+        string $slug
     ): self {
         $self = new self;
 
-        $self['handle'] = $handle;
-        $self['logo'] = $logo;
+        $self['id'] = $id;
+        $self['icon'] = $icon;
         $self['name'] = $name;
+        $self['slug'] = $slug;
 
         return $self;
     }
 
-    public function withHandle(string $handle): self
+    public function withID(int $id): self
     {
         $self = clone $this;
-        $self['handle'] = $handle;
+        $self['id'] = $id;
 
         return $self;
     }
 
-    public function withLogo(?string $logo): self
+    public function withIcon(?string $icon): self
     {
         $self = clone $this;
-        $self['logo'] = $logo;
+        $self['icon'] = $icon;
 
         return $self;
     }
@@ -85,6 +90,14 @@ final class Business implements BaseModel
     {
         $self = clone $this;
         $self['name'] = $name;
+
+        return $self;
+    }
+
+    public function withSlug(string $slug): self
+    {
+        $self = clone $this;
+        $self['slug'] = $slug;
 
         return $self;
     }
