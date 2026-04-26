@@ -18,12 +18,11 @@ use Eat518\Customer\Messaging\Conversations\Messages\Message\Sender;
  *   content: string,
  *   conversationID: string,
  *   createdAt: string,
- *   editedAt: string,
+ *   editedAt: string|null,
  *   isEdited: bool,
  *   messageType: string,
- *   metadata: list<mixed>|null,
+ *   metadata: array<string,mixed>|null,
  *   senderID: string,
- *   senderType: string,
  *   updatedAt: string,
  *   sender?: null|Sender|SenderShape,
  * }
@@ -46,7 +45,7 @@ final class Message implements BaseModel
     public string $createdAt;
 
     #[Required('edited_at')]
-    public string $editedAt;
+    public ?string $editedAt;
 
     #[Required('is_edited')]
     public bool $isEdited;
@@ -54,15 +53,12 @@ final class Message implements BaseModel
     #[Required('message_type')]
     public string $messageType;
 
-    /** @var list<mixed>|null $metadata */
-    #[Required(list: 'mixed')]
+    /** @var array<string,mixed>|null $metadata */
+    #[Required(map: 'mixed')]
     public ?array $metadata;
 
     #[Required('sender_id')]
     public string $senderID;
-
-    #[Required('sender_type')]
-    public string $senderType;
 
     #[Required('updated_at')]
     public string $updatedAt;
@@ -85,7 +81,6 @@ final class Message implements BaseModel
      *   messageType: ...,
      *   metadata: ...,
      *   senderID: ...,
-     *   senderType: ...,
      *   updatedAt: ...,
      * )
      * ```
@@ -103,7 +98,6 @@ final class Message implements BaseModel
      *   ->withMessageType(...)
      *   ->withMetadata(...)
      *   ->withSenderID(...)
-     *   ->withSenderType(...)
      *   ->withUpdatedAt(...)
      * ```
      */
@@ -117,7 +111,7 @@ final class Message implements BaseModel
      *
      * You must use named parameters to construct any parameters with a default value.
      *
-     * @param list<mixed>|null $metadata
+     * @param array<string,mixed>|null $metadata
      * @param Sender|SenderShape|null $sender
      */
     public static function with(
@@ -125,12 +119,11 @@ final class Message implements BaseModel
         string $content,
         string $conversationID,
         string $createdAt,
-        string $editedAt,
+        ?string $editedAt,
         bool $isEdited,
         string $messageType,
         ?array $metadata,
         string $senderID,
-        string $senderType,
         string $updatedAt,
         Sender|array|null $sender = null,
     ): self {
@@ -145,7 +138,6 @@ final class Message implements BaseModel
         $self['messageType'] = $messageType;
         $self['metadata'] = $metadata;
         $self['senderID'] = $senderID;
-        $self['senderType'] = $senderType;
         $self['updatedAt'] = $updatedAt;
 
         null !== $sender && $self['sender'] = $sender;
@@ -185,7 +177,7 @@ final class Message implements BaseModel
         return $self;
     }
 
-    public function withEditedAt(string $editedAt): self
+    public function withEditedAt(?string $editedAt): self
     {
         $self = clone $this;
         $self['editedAt'] = $editedAt;
@@ -210,7 +202,7 @@ final class Message implements BaseModel
     }
 
     /**
-     * @param list<mixed>|null $metadata
+     * @param array<string,mixed>|null $metadata
      */
     public function withMetadata(?array $metadata): self
     {
@@ -224,14 +216,6 @@ final class Message implements BaseModel
     {
         $self = clone $this;
         $self['senderID'] = $senderID;
-
-        return $self;
-    }
-
-    public function withSenderType(string $senderType): self
-    {
-        $self = clone $this;
-        $self['senderType'] = $senderType;
 
         return $self;
     }

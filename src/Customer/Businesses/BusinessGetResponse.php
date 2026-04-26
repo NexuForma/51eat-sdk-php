@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Eat518\Customer\Businesses;
+
+use Eat518\Core\Attributes\Required;
+use Eat518\Core\Concerns\SdkModel;
+use Eat518\Core\Contracts\BaseModel;
+
+/**
+ * @phpstan-import-type BusinessProfileShape from \Eat518\Customer\Businesses\BusinessProfile
+ *
+ * @phpstan-type BusinessGetResponseShape = array{
+ *   data: BusinessProfile|BusinessProfileShape
+ * }
+ */
+final class BusinessGetResponse implements BaseModel
+{
+    /** @use SdkModel<BusinessGetResponseShape> */
+    use SdkModel;
+
+    #[Required]
+    public BusinessProfile $data;
+
+    /**
+     * `new BusinessGetResponse()` is missing required properties by the API.
+     *
+     * To enforce required parameters use
+     * ```
+     * BusinessGetResponse::with(data: ...)
+     * ```
+     *
+     * Otherwise ensure the following setters are called
+     *
+     * ```
+     * (new BusinessGetResponse)->withData(...)
+     * ```
+     */
+    public function __construct()
+    {
+        $this->initialize();
+    }
+
+    /**
+     * Construct an instance from the required parameters.
+     *
+     * You must use named parameters to construct any parameters with a default value.
+     *
+     * @param BusinessProfile|BusinessProfileShape $data
+     */
+    public static function with(BusinessProfile|array $data): self
+    {
+        $self = new self;
+
+        $self['data'] = $data;
+
+        return $self;
+    }
+
+    /**
+     * @param BusinessProfile|BusinessProfileShape $data
+     */
+    public function withData(BusinessProfile|array $data): self
+    {
+        $self = clone $this;
+        $self['data'] = $data;
+
+        return $self;
+    }
+}

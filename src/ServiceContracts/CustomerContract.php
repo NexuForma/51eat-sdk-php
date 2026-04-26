@@ -10,6 +10,7 @@ use Eat518\Customer\CustomerLoginResponse;
 use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchResponse;
 use Eat518\RequestOptions;
 
 /**
@@ -20,9 +21,6 @@ interface CustomerContract
     /**
      * @api
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The user's email address
-     * @param string $password The user's password
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -59,11 +57,6 @@ interface CustomerContract
     /**
      * @api
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The customer's email address
-     * @param string $name The customer's full name
-     * @param string $password The customer's password
-     * @param string $passwordConfirmation Password confirmation
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -87,4 +80,29 @@ interface CustomerContract
     public function retrieveUser(
         RequestOptions|array|null $requestOptions = null
     ): CustomerGetUserResponse;
+
+    /**
+     * @api
+     *
+     * @param string $q Search query
+     * @param string $category Filter by business category
+     * @param string $city Filter by city
+     * @param mixed $lat Latitude for geo radius filter (requires lng and radius_km)
+     * @param mixed $lng Longitude for geo radius filter (requires lat and radius_km)
+     * @param int $perType Max results per type (default 5, max 20)
+     * @param int $radiusKm Geo radius in kilometers (requires lat and lng)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function search(
+        string $q,
+        ?string $category = null,
+        ?string $city = null,
+        mixed $lat = null,
+        mixed $lng = null,
+        ?int $perType = null,
+        ?int $radiusKm = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): CustomerSearchResponse;
 }

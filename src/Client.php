@@ -35,7 +35,7 @@ class Client extends BaseClient
             'EAT518_HTTP_SECURITY'
         ));
 
-        $baseUrl ??= Util::getenv('EAT518_BASE_URL') ?: 'http://51eat.co/api/v1';
+        $baseUrl ??= Util::getenv('EAT518_BASE_URL') ?: 'https://51eat.co/api/v1';
 
         $options = RequestOptions::parse(
             RequestOptions::with(
@@ -66,8 +66,18 @@ class Client extends BaseClient
         $this->customer = new CustomerService($this);
     }
 
+    /**
+     * @param array{http?: bool} $security
+     *
+     * @return array<string,string>
+     */
+    protected function authHeaders(array $security): array
+    {
+        return [...($security['http'] ?? false) ? $this->http() : []];
+    }
+
     /** @return array<string,string> */
-    protected function authHeaders(): array
+    protected function http(): array
     {
         return $this->httpSecurity ? [
             'Authorization' => "Bearer {$this->httpSecurity}",
@@ -81,6 +91,7 @@ class Client extends BaseClient
      * @param array<string,mixed> $query
      * @param array<string,string|int|list<string|int>|null> $headers
      * @param RequestOpts|null $opts
+     * @param array{http?: bool}|null $security
      *
      * @return array{NormalizedRequest, RequestOptions}
      */
@@ -91,14 +102,19 @@ class Client extends BaseClient
         array $headers,
         mixed $body,
         RequestOptions|array|null $opts,
+        ?array $security = null,
     ): array {
         return parent::buildRequest(
             method: $method,
             path: $path,
             query: $query,
-            headers: [...$this->authHeaders(), ...$headers],
+            headers: [
+                ...$this->authHeaders(security: ($security ?? ['http' => true])),
+                ...$headers,
+            ],
             body: $body,
             opts: $opts,
+            security: $security,
         );
     }
 }

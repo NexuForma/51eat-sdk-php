@@ -7,6 +7,7 @@ namespace Eat518\Services\Customer;
 use Eat518\Client;
 use Eat518\Core\Exceptions\APIException;
 use Eat518\Core\Util;
+use Eat518\Customer\Channels\ChannelAuthenticateResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\Customer\ChannelsContract;
 
@@ -38,13 +39,15 @@ final class ChannelsService implements ChannelsContract
      * @param string $socketID string
      * @param RequestOpts|null $requestOptions
      *
+     * @return value-of<ChannelAuthenticateResponse>
+     *
      * @throws APIException
      */
     public function authenticate(
         string $channelName,
         string $socketID,
         RequestOptions|array|null $requestOptions = null,
-    ): string {
+    ): int {
         $params = Util::removeNulls(
             ['channelName' => $channelName, 'socketID' => $socketID]
         );

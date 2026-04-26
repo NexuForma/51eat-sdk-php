@@ -12,13 +12,19 @@ use Eat518\Customer\CustomerLoginResponse;
 use Eat518\Customer\CustomerLogoutAllResponse;
 use Eat518\Customer\CustomerLogoutResponse;
 use Eat518\Customer\CustomerRegisterResponse;
+use Eat518\Customer\CustomerSearchResponse;
 use Eat518\RequestOptions;
 use Eat518\ServiceContracts\CustomerContract;
 use Eat518\Services\Customer\BusinessesService;
 use Eat518\Services\Customer\ChannelsService;
 use Eat518\Services\Customer\DiscoveryService;
+use Eat518\Services\Customer\EventsService;
 use Eat518\Services\Customer\ExploreService;
+use Eat518\Services\Customer\FavoritesService;
 use Eat518\Services\Customer\MessagingService;
+use Eat518\Services\Customer\RsvpsService;
+use Eat518\Services\Customer\TicketOrdersService;
+use Eat518\Services\Customer\TicketsService;
 use Eat518\Services\Customer\TokensService;
 
 /**
@@ -44,6 +50,16 @@ final class CustomerService implements CustomerContract
     /**
      * @api
      */
+    public FavoritesService $favorites;
+
+    /**
+     * @api
+     */
+    public RsvpsService $rsvps;
+
+    /**
+     * @api
+     */
     public BusinessesService $businesses;
 
     /**
@@ -62,6 +78,21 @@ final class CustomerService implements CustomerContract
     public DiscoveryService $discovery;
 
     /**
+     * @api
+     */
+    public TicketsService $tickets;
+
+    /**
+     * @api
+     */
+    public TicketOrdersService $ticketOrders;
+
+    /**
+     * @api
+     */
+    public EventsService $events;
+
+    /**
      * @internal
      */
     public function __construct(private Client $client)
@@ -69,10 +100,15 @@ final class CustomerService implements CustomerContract
         $this->raw = new CustomerRawService($client);
         $this->tokens = new TokensService($client);
         $this->channels = new ChannelsService($client);
+        $this->favorites = new FavoritesService($client);
+        $this->rsvps = new RsvpsService($client);
         $this->businesses = new BusinessesService($client);
         $this->messaging = new MessagingService($client);
         $this->explore = new ExploreService($client);
         $this->discovery = new DiscoveryService($client);
+        $this->tickets = new TicketsService($client);
+        $this->ticketOrders = new TicketOrdersService($client);
+        $this->events = new EventsService($client);
     }
 
     /**
@@ -80,9 +116,6 @@ final class CustomerService implements CustomerContract
      *
      * Exchange user credentials for an API token that can be used for subsequent authenticated requests.
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The user's email address
-     * @param string $password The user's password
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -144,11 +177,6 @@ final class CustomerService implements CustomerContract
      *
      * Create a new customer account and return an API token for immediate authentication.
      *
-     * @param string $deviceName A descriptive name for the device
-     * @param string $email The customer's email address
-     * @param string $name The customer's full name
-     * @param string $password The customer's password
-     * @param string $passwordConfirmation Password confirmation
      * @param RequestOpts|null $requestOptions
      *
      * @throws APIException
@@ -191,6 +219,51 @@ final class CustomerService implements CustomerContract
     ): CustomerGetUserResponse {
         // @phpstan-ignore-next-line argument.type
         $response = $this->raw->retrieveUser(requestOptions: $requestOptions);
+
+        return $response->parse();
+    }
+
+    /**
+     * @api
+     *
+     * Returns grouped results for each type. Use per_type to control how many results
+     * appear per section. Optionally filter by category, city, or geo radius.
+     *
+     * @param string $q Search query
+     * @param string $category Filter by business category
+     * @param string $city Filter by city
+     * @param mixed $lat Latitude for geo radius filter (requires lng and radius_km)
+     * @param mixed $lng Longitude for geo radius filter (requires lat and radius_km)
+     * @param int $perType Max results per type (default 5, max 20)
+     * @param int $radiusKm Geo radius in kilometers (requires lat and lng)
+     * @param RequestOpts|null $requestOptions
+     *
+     * @throws APIException
+     */
+    public function search(
+        string $q,
+        ?string $category = null,
+        ?string $city = null,
+        mixed $lat = null,
+        mixed $lng = null,
+        ?int $perType = null,
+        ?int $radiusKm = null,
+        RequestOptions|array|null $requestOptions = null,
+    ): CustomerSearchResponse {
+        $params = Util::removeNulls(
+            [
+                'q' => $q,
+                'category' => $category,
+                'city' => $city,
+                'lat' => $lat,
+                'lng' => $lng,
+                'perType' => $perType,
+                'radiusKm' => $radiusKm,
+            ],
+        );
+
+        // @phpstan-ignore-next-line argument.type
+        $response = $this->raw->search(params: $params, requestOptions: $requestOptions);
 
         return $response->parse();
     }

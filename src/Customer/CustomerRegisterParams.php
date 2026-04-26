@@ -28,33 +28,18 @@ final class CustomerRegisterParams implements BaseModel
     use SdkModel;
     use SdkParams;
 
-    /**
-     * A descriptive name for the device.
-     */
     #[Required('device_name')]
     public string $deviceName;
 
-    /**
-     * The customer's email address.
-     */
     #[Required]
     public string $email;
 
-    /**
-     * The customer's full name.
-     */
     #[Required]
     public string $name;
 
-    /**
-     * The customer's password.
-     */
     #[Required]
     public string $password;
 
-    /**
-     * Password confirmation.
-     */
     #[Required('password_confirmation')]
     public string $passwordConfirmation;
 
@@ -111,9 +96,6 @@ final class CustomerRegisterParams implements BaseModel
         return $self;
     }
 
-    /**
-     * A descriptive name for the device.
-     */
     public function withDeviceName(string $deviceName): self
     {
         $self = clone $this;
@@ -122,9 +104,6 @@ final class CustomerRegisterParams implements BaseModel
         return $self;
     }
 
-    /**
-     * The customer's email address.
-     */
     public function withEmail(string $email): self
     {
         $self = clone $this;
@@ -133,9 +112,6 @@ final class CustomerRegisterParams implements BaseModel
         return $self;
     }
 
-    /**
-     * The customer's full name.
-     */
     public function withName(string $name): self
     {
         $self = clone $this;
@@ -144,9 +120,6 @@ final class CustomerRegisterParams implements BaseModel
         return $self;
     }
 
-    /**
-     * The customer's password.
-     */
     public function withPassword(string $password): self
     {
         $self = clone $this;
@@ -155,9 +128,6 @@ final class CustomerRegisterParams implements BaseModel
         return $self;
     }
 
-    /**
-     * Password confirmation.
-     */
     public function withPasswordConfirmation(string $passwordConfirmation): self
     {
         $self = clone $this;
