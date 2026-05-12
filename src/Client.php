@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Eat518;
 
 use Eat518\Core\BaseClient;
+use Eat518\Core\Implementation\StreamingHttpClient;
 use Eat518\Core\Util;
 use Eat518\Services\CustomerService;
 use Http\Discovery\Psr17FactoryDiscovery;
@@ -46,6 +47,11 @@ class Client extends BaseClient
             ),
             $requestOptions,
         );
+
+        if (is_null($options->streamingTransporter)) {
+            assert(!is_null($options->transporter));
+            $options->streamingTransporter = new StreamingHttpClient($options->transporter);
+        }
 
         /** @var array<string, string|null> $headers */
         $headers = [
